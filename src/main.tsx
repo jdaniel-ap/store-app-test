@@ -7,6 +7,7 @@ import { ErrorBoundary } from './components/layout';
 import './i18n';
 
 import './index.css';
+import { Toaster } from 'sonner';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
+      <Toaster />
     </ErrorBoundary>
   </StrictMode>
 );
