@@ -31,7 +31,13 @@
       "quantity": "Quantity",
       "remove": "Remove",
       "itemsInCart": "{{count}} item in cart",
-      "itemsInCart_other": "{{count}} items in cart"
+      "itemsInCart_other": "{{count}} items in cart",
+      "orderSummary": "Order Summary",
+      "subtotal": "Subtotal",
+      "items": "items",
+      "shipping": "Shipping",
+      "free": "Free",
+      "clearCart": "Clear Cart"
     },
     "login": {
       "title": "Sign In",
@@ -68,10 +74,11 @@
     "notFound": "Resource not found."
   },
   "products": {
-    "addToCart": "Add to Cart",
     "buyNow": "Buy Now",
+       "addToCart": "Add to Cart",
     "outOfStock": "Out of Stock",
     "inStock": "In Stock",
+    "inCart": "In Cart",
     "price": "Price",
     "description": "Description",
     "details": "Details",

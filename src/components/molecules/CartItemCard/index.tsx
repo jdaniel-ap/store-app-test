@@ -7,12 +7,14 @@ import { Minus, Plus, Trash2 } from 'lucide-react';
 interface CartItemCardProps {
   item: CartItem;
 }
+const MINIMUM_QUANTITY = 0;
+const DECIMAL_PLACES = 2;
 
 export default function CartItemCard({ item }: CartItemCardProps) {
   const { updateQuantity, removeItem } = useCartStore();
 
   const handleQuantityChange = (newQuantity: number) => {
-    if (newQuantity <= 0) {
+    if (newQuantity <= MINIMUM_QUANTITY) {
       removeItem(item.id);
     } else {
       updateQuantity(item.id, newQuantity);
@@ -20,8 +22,7 @@ export default function CartItemCard({ item }: CartItemCardProps) {
   };
 
   return (
-    <article className="flex gap-4 rounded-lg bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg">
-      {/* Imagen del producto */}
+    <article className="bg-accent flex gap-4 rounded-lg p-4 shadow-md transition-shadow duration-300 hover:shadow-lg">
       <figure className="h-24 w-24 flex-shrink-0">
         <ProductImage
           src={item.image}
@@ -29,30 +30,24 @@ export default function CartItemCard({ item }: CartItemCardProps) {
           className="h-full w-full rounded-md object-cover"
         />
       </figure>
-
-      {/* Información del producto */}
       <div className="flex flex-1 flex-col justify-between">
         <header>
-          <h3 className="line-clamp-2 text-lg font-semibold text-gray-900">
+          <h3 className="text-foreground line-clamp-2 text-lg font-semibold">
             {item.title}
           </h3>
           {item.category && (
-            <span className="text-sm text-blue-600">{item.category.name}</span>
+            <span className="text-primary text-sm">{item.category.name}</span>
           )}
         </header>
-
-        {/* Precio y controles */}
         <footer className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
             <span className="text-xl font-bold text-green-600">
-              ${item.price.toFixed(2)}
+              ${item.price.toFixed(DECIMAL_PLACES)}
             </span>
             <span className="text-sm text-gray-500">
-              ${(item.price * item.quantity).toFixed(2)} total
+              ${(item.price * item.quantity).toFixed(DECIMAL_PLACES)} total
             </span>
           </div>
-
-          {/* Controles de cantidad */}
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1 rounded-md border">
               <Button

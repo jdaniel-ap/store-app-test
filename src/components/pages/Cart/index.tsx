@@ -6,6 +6,8 @@ import { CartItemCard } from '@/components/molecules';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, ArrowLeft } from 'lucide-react';
 
+const DECIMAL_PLACES = 2;
+
 function Cart() {
   const { t } = useTranslation();
   const { items, totalPrice, totalItems, clearCart } = useCartStore();
@@ -48,7 +50,6 @@ function Cart() {
           </section>
         ) : (
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {/* Lista de productos */}
             <section className="lg:col-span-2">
               <div className="space-y-4">
                 {items.map((item) => (
@@ -56,32 +57,35 @@ function Cart() {
                 ))}
               </div>
             </section>
-
-            {/* Resumen del carrito */}
             <aside className="lg:col-span-1">
-              <div className="sticky top-8 rounded-lg bg-white p-6 shadow-lg">
-                <h3 className="mb-4 text-xl font-semibold text-gray-900">
-                  Order Summary
+              <div className="bg-accent sticky top-8 rounded-lg p-6 shadow-lg">
+                <h3 className="text-foreground mb-4 text-xl font-semibold">
+                  {t('pages.cart.orderSummary')}
                 </h3>
 
                 <div className="mb-6 space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">
-                      Subtotal ({totalItems} items)
+                      {t('pages.cart.subtotal')} ({totalItems}{' '}
+                      {t('pages.cart.items')})
                     </span>
                     <span className="font-medium">
-                      ${totalPrice.toFixed(2)}
+                      ${totalPrice.toFixed(DECIMAL_PLACES)}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Shipping</span>
-                    <span className="font-medium text-green-600">Free</span>
+                    <span className="text-gray-600">
+                      {t('pages.cart.shipping')}
+                    </span>
+                    <span className="text-primary font-medium">
+                      {t('pages.cart.free')}
+                    </span>
                   </div>
                   <hr />
                   <div className="flex justify-between text-lg font-semibold">
                     <span>{t('pages.cart.total')}</span>
-                    <span className="text-green-600">
-                      ${totalPrice.toFixed(2)}
+                    <span className="text-primary">
+                      ${totalPrice.toFixed(DECIMAL_PLACES)}
                     </span>
                   </div>
                 </div>
@@ -96,7 +100,7 @@ function Cart() {
                     className="w-full"
                     onClick={clearCart}
                   >
-                    Clear Cart
+                    {t('pages.cart.clearCart')}
                   </Button>
                 </div>
               </div>

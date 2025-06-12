@@ -3,6 +3,20 @@
     "home": "Início",
     "login": "Entrar",
     "logout": "Sair",
+  
+    "products": {
+    "addToCart": "Adicionar ao Carrinho",
+    "buyNow": "Comprar Agora",
+    "outOfStock": "Fora de Estoque",
+    "inStock": "Em Estoque",
+    "inCart": "No Carrinho",
+    "price": "Preço",
+    "description": "Descrição",
+    "details": "Detalhes",
+    "reviews": "Avaliações",
+    "rating": "Classificação",
+    "category": "Categoria"
+  },
     "language": "Idioma",
     "cart": "Carrinho de Compras",
     "userMenuDescription": "Gerencie sua conta e preferências",
@@ -31,7 +45,13 @@
       "quantity": "Quantidade",
       "remove": "Remover",
       "itemsInCart": "{{count}} item no carrinho",
-      "itemsInCart_other": "{{count}} itens no carrinho"
+      "itemsInCart_other": "{{count}} itens no carrinho",
+      "orderSummary": "Resumo do Pedido",
+      "subtotal": "Subtotal",
+      "items": "itens",
+      "shipping": "Entrega",
+      "free": "Grátis",
+      "clearCart": "Limpar Carrinho"
     },
     "login": {
       "title": "Entrar",
@@ -72,6 +92,7 @@
     "buyNow": "Comprar Agora",
     "outOfStock": "Fora de Estoque",
     "inStock": "Em Estoque",
+    "inCart": "No Carrinho",
     "price": "Preço",
     "description": "Descrição",
     "details": "Detalhes",

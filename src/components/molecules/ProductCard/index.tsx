@@ -3,7 +3,7 @@ import { ProductImage } from '@/components/atoms';
 import { Button } from '@/components/ui/button';
 import { useCartStore } from '@/stores';
 import type { Product } from '@/services';
-import { ShoppingCart, Check, Minus, Plus } from 'lucide-react';
+import { Check, Minus, Plus } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -65,7 +65,7 @@ function ProductCard({ product }: ProductCardProps) {
           {product.description}
         </p>
 
-        <footer className="flex items-center justify-between">
+        <footer className="flex flex-col gap-3">
           <span className="text-xl font-bold text-white">
             ${product.price.toFixed(2)}
           </span>
@@ -73,15 +73,18 @@ function ProductCard({ product }: ProductCardProps) {
           {!isInCart ? (
             <Button
               type="button"
-              className="gap-2 rounded-md px-4 py-2 text-sm font-medium text-white transition-colors duration-200"
+              className="w-full gap-2 rounded-md px-4 py-2 text-sm font-medium text-white transition-colors duration-200"
               onClick={handleAddToCart}
               aria-label={`Add ${product.title} to cart`}
             >
-              <ShoppingCart className="h-4 w-4" />
               {t('products.addToCart')}
             </Button>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex justify-between">
+              <div className="flex items-center justify-center gap-1 text-xs text-green-600">
+                <Check className="h-3 w-3" />
+                <span>{t('products.inCart')}</span>
+              </div>
               <div className="flex items-center gap-1 rounded-md border bg-white">
                 <Button
                   variant="ghost"
@@ -106,11 +109,6 @@ function ProductCard({ product }: ProductCardProps) {
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
-              </div>
-
-              <div className="flex items-center gap-1 text-xs text-green-600">
-                <Check className="h-3 w-3" />
-                <span>In Cart</span>
               </div>
             </div>
           )}
