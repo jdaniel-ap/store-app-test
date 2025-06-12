@@ -14,7 +14,11 @@
   "pages": {
     "home": {
       "title": "Página Inicial",
-      "welcome": "Bem-vindo"
+      "welcome": "Bem-vindo",
+      "featuredProducts": "✨ Descubra Nossa Coleção Incrível",
+      "featuredProductsSubtitle": "Produtos selecionados especialmente para você",
+      "loadingProducts": "Carregando produtos incríveis...",
+      "noProducts": "Nenhum produto disponível no momento"
     },
     "login": {
       "title": "Entrar",
@@ -49,5 +53,17 @@
     "network": "Erro de conexão. Verifique sua internet.",
     "unauthorized": "Acesso não autorizado.",
     "notFound": "Recurso não encontrado."
+  },
+  "products": {
+    "addToCart": "Adicionar ao Carrinho",
+    "buyNow": "Comprar Agora",
+    "outOfStock": "Fora de Estoque",
+    "inStock": "Em Estoque",
+    "price": "Preço",
+    "description": "Descrição",
+    "details": "Detalhes",
+    "reviews": "Avaliações",
+    "rating": "Classificação",
+    "category": "Categoria"
   }
 }

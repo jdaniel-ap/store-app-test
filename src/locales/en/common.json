@@ -14,7 +14,11 @@
   "pages": {
     "home": {
       "title": "Home Page",
-      "welcome": "Welcome"
+      "welcome": "Welcome",
+      "featuredProducts": "🌟 Discover Our Amazing Collection",
+      "featuredProductsSubtitle": "Handpicked products just for you",
+      "loadingProducts": "Loading awesome products...",
+      "noProducts": "No products available at the moment"
     },
     "login": {
       "title": "Sign In",
@@ -49,5 +53,17 @@
     "network": "Connection error. Check your internet.",
     "unauthorized": "Unauthorized access.",
     "notFound": "Resource not found."
+  },
+  "products": {
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "price": "Price",
+    "description": "Description",
+    "details": "Details",
+    "reviews": "Reviews",
+    "rating": "Rating",
+    "category": "Category"
   }
 }
