@@ -15,7 +15,7 @@ function UserAvatar({ imageUrl, name }: { imageUrl?: string; name?: string }) {
     );
   };
   return (
-    <Avatar className="rounded-lg">
+    <Avatar className="rounded-full">
       <AvatarImage src={imageUrl} alt={name} />
       <AvatarFallback>{getInitials()}</AvatarFallback>
     </Avatar>
