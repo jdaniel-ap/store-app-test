@@ -38,7 +38,8 @@
       "items": "itens",
       "shipping": "Entrega",
       "free": "Grátis",
-      "clearCart": "Limpar Carrinho"
+      "clearCart": "Limpar Carrinho",
+      "backLabel": "Voltar ao início"
     },
     "login": {
       "title": "Entrar",
