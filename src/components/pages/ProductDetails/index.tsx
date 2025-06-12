@@ -1,12 +1,21 @@
+import { lazy, Suspense } from 'react';
 import { useParams, Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 
 import { AppLayout } from '@/components/templates';
-import { AppLayoutHeader, ProductDetailsContent } from '@/components/organisms';
 import Loader from '@/components/atoms/Loader';
-import { ProductNotFound } from '@/components/molecules';
 import { productService } from '@/services';
+
+const AppLayoutHeader = lazy(
+  () => import('@/components/organisms/AppLayoutHeader')
+);
+const ProductDetailsContent = lazy(
+  () => import('@/components/organisms/ProductDetailsContent')
+);
+const ProductNotFound = lazy(
+  () => import('@/components/molecules/ProductNotFound')
+);
 
 function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -44,12 +53,20 @@ function ProductDetails() {
 
   return (
     <AppLayout>
-      <AppLayoutHeader
-        title={t('pages.productDetails.title')}
-        subtitle={t('pages.productDetails.subtitle')}
-        backLabel={t('common.backToHome')}
-        backTo="/"
-      />
+      <Suspense
+        fallback={
+          <div className="flex h-20 items-center justify-center">
+            <Loader />
+          </div>
+        }
+      >
+        <AppLayoutHeader
+          title={t('pages.productDetails.title')}
+          subtitle={t('pages.productDetails.subtitle')}
+          backLabel={t('common.backToHome')}
+          backTo="/"
+        />
+      </Suspense>
       <main className="container mx-auto px-4 py-8">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20">
@@ -59,11 +76,35 @@ function ProductDetails() {
             </h1>
           </div>
         ) : isError ? (
-          <ProductNotFound />
+          <Suspense
+            fallback={
+              <div className="flex h-64 items-center justify-center">
+                <Loader />
+              </div>
+            }
+          >
+            <ProductNotFound />
+          </Suspense>
         ) : product ? (
-          <ProductDetailsContent product={product} />
+          <Suspense
+            fallback={
+              <div className="flex h-96 items-center justify-center">
+                <Loader />
+              </div>
+            }
+          >
+            <ProductDetailsContent product={product} />
+          </Suspense>
         ) : (
-          <ProductNotFound />
+          <Suspense
+            fallback={
+              <div className="flex h-64 items-center justify-center">
+                <Loader />
+              </div>
+            }
+          >
+            <ProductNotFound />
+          </Suspense>
         )}
       </main>
     </AppLayout>

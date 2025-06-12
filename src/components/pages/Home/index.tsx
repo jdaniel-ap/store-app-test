@@ -1,10 +1,16 @@
+import { lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppLayout } from '@/components/templates';
-import ProductList from '@/components/organisms/ProductList';
 import Loader from '@/components/atoms/Loader';
-import { ProductPagination } from '@/components/molecules';
-import FilterProducts from '@/components/molecules/ProductFilters';
 import { useProductFilters } from '@/hooks';
+
+const ProductList = lazy(() => import('@/components/organisms/ProductList'));
+const ProductPagination = lazy(
+  () => import('@/components/molecules/Pagination')
+);
+const FilterProducts = lazy(
+  () => import('@/components/molecules/ProductFilters')
+);
 
 const MAX_PRODUCTS = 10;
 
@@ -37,10 +43,18 @@ function Home() {
                 {t('pages.home.featuredProductsSubtitle')}
               </p>
             </div>
-            <FilterProducts
-              onFilterChange={handleFilterChange}
-              initialFilters={filters}
-            />
+            <Suspense
+              fallback={
+                <div className="flex h-32 items-center justify-center">
+                  <Loader />
+                </div>
+              }
+            >
+              <FilterProducts
+                onFilterChange={handleFilterChange}
+                initialFilters={filters}
+              />
+            </Suspense>
           </div>
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-20">
@@ -57,14 +71,31 @@ function Home() {
             </div>
           ) : products ? (
             <>
-              <ProductList products={products} />
-              <ProductPagination
-                page={page}
-                onPageChange={handlePageChange}
-                itemCount={products.length}
-                itemsPerPage={MAX_PRODUCTS}
-                totalPages={totalPages}
-              />
+              <Suspense
+                fallback={
+                  <div className="flex h-64 items-center justify-center">
+                    <Loader />
+                  </div>
+                }
+              >
+                <ProductList products={products} />
+              </Suspense>
+
+              <Suspense
+                fallback={
+                  <div className="mt-4 flex h-16 items-center justify-center">
+                    <Loader />
+                  </div>
+                }
+              >
+                <ProductPagination
+                  page={page}
+                  onPageChange={handlePageChange}
+                  itemCount={products.length}
+                  itemsPerPage={MAX_PRODUCTS}
+                  totalPages={totalPages}
+                />
+              </Suspense>
             </>
           ) : null}
         </section>
