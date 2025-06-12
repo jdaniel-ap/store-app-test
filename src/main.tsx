@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
 import App from './App.tsx';
-import ErrorBoundary from './components/layout/ErrorBoundary.tsx';
+import { ErrorBoundary } from './components/layout';
 import './i18n';
 
 import './index.css';
