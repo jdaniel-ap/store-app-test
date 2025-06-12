@@ -5,6 +5,7 @@ import { AppLayout } from '@/components/templates';
 import { CartItemCard } from '@/components/molecules';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, ArrowLeft } from 'lucide-react';
+import { AppLayoutHeader } from '@/components/organisms';
 
 const DECIMAL_PLACES = 2;
 
@@ -16,20 +17,13 @@ function Cart() {
 
   return (
     <AppLayout>
+      <AppLayoutHeader
+        title={t('pages.cart.title')}
+        backTo="/"
+        backLabel={t('pages.cart.backLabel')}
+        subtitle={t('pages.cart.subtitle')}
+      />
       <main className="container mx-auto px-8 py-8 md:px-20">
-        <header className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold text-white">
-            {t('pages.cart.title')}
-          </h1>
-          <p className="text-lg text-gray-300">{t('pages.cart.subtitle')}</p>
-
-          {!isEmpty && (
-            <p className="mt-2 text-sm text-gray-400">
-              {t('pages.cart.itemsInCart', { count: totalItems })}
-            </p>
-          )}
-        </header>
-
         {isEmpty ? (
           <section className="flex flex-col items-center justify-center py-20">
             <div className="max-w-md text-center">

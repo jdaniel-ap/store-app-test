@@ -1,2 +1,3 @@
 export { default as SignInDialog } from './SignInDialog';
 export { default as UserMenu } from './UserMenu';
+export { AppLayoutHeader, type AppLayoutHeaderProps } from './AppLayoutHeader';

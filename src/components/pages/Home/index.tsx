@@ -4,6 +4,7 @@ import { AppLayout } from '@/components/templates';
 import { productService } from '@/services';
 import { Suspense } from 'react';
 import ProductList from '@/components/organisms/ProductList';
+import { AppLayoutHeader } from '@/components/organisms';
 import Loader from '@/components/atoms/Loader';
 
 const productsReq = productService.getProducts(10, 10);
@@ -14,16 +15,16 @@ function Home() {
   return (
     <AppLayout>
       <main className="container mx-auto px-4 py-8">
-        <header className="mb-12 text-center">
-          <h1 className="mb-4 text-center text-4xl font-bold">
-            {t('pages.home.welcome')}
-          </h1>
-          {isAuthenticated && user && (
-            <p className="text-xl text-gray-600">
-              {t('auth.welcome', { name: user.name || 'User' })}
-            </p>
-          )}
-        </header>
+        <AppLayoutHeader
+          title={t('pages.home.welcome')}
+          subtitle={
+            isAuthenticated && user
+              ? t('auth.welcome', { name: user.name || 'User' })
+              : undefined
+          }
+          className="mb-12"
+          center
+        />
 
         <section aria-labelledby="products-heading" className="px-4 md:px-20">
           <div className="mb-8 text-left">
