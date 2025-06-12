@@ -17,12 +17,14 @@ interface ProductPaginationProps {
   totalPages?: number;
 }
 
+const MAX_PAGES = 5;
+
 function ProductPagination({
   page,
   onPageChange,
   itemCount,
   itemsPerPage,
-  totalPages = 5,
+  totalPages = MAX_PAGES,
 }: ProductPaginationProps) {
   const { t } = useTranslation();
 
@@ -32,16 +34,25 @@ function ProductPagination({
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              onClick={() => onPageChange(Math.max(0, page - 1))}
-              className={page === 0 ? 'pointer-events-none opacity-50' : ''}
+              href={page <= 1 ? '#' : `?page=${page - 1}`}
+              onClick={(e) => {
+                if (page <= 1) return;
+                e.preventDefault();
+                onPageChange(Math.max(0, page - 1));
+              }}
+              className={page <= 1 ? 'pointer-events-none opacity-50' : ''}
             />
           </PaginationItem>
 
           {[...Array(totalPages)].map((_, i) => (
             <PaginationItem key={i}>
               <PaginationLink
-                isActive={page - 1 === i}
-                onClick={() => onPageChange(i)}
+                href={`?page=${i + 1}`}
+                isActive={page === i + 1}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onPageChange(i + 1);
+                }}
               >
                 {i + 1}
               </PaginationLink>
@@ -53,7 +64,13 @@ function ProductPagination({
           </PaginationItem>
 
           <PaginationItem>
-            <PaginationNext onClick={() => onPageChange(page + 1)} />
+            <PaginationNext
+              href={`?page=${page + 1}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange(page + 1);
+              }}
+            />
           </PaginationItem>
         </PaginationContent>
       </ShadcnPagination>
