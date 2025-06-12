@@ -79,7 +79,13 @@
       "deleteConfirmTitle": "Excluir Produto",
       "deleteConfirmDescription": "Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.",
       "productDeleted": "Produto excluído com sucesso",
-      "productDeleteFailed": "Falha ao excluir produto"
+      "productDeleteFailed": "Falha ao excluir produto",
+      "editProduct": "Editar Produto",
+      "editProductDescription": "Atualizar informações do produto",
+      "saveChanges": "Salvar Alterações",
+      "saving": "Salvando...",
+      "productUpdated": "Produto atualizado com sucesso",
+      "productUpdateFailed": "Falha ao atualizar produto"
     },
     "publishProduct": {
       "title": "Publicar Produto",

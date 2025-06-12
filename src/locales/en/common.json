@@ -79,7 +79,13 @@
       "deleteConfirmTitle": "Delete Product",
       "deleteConfirmDescription": "Are you sure you want to delete this product? This action cannot be undone.",
       "productDeleted": "Product successfully deleted",
-      "productDeleteFailed": "Failed to delete product"
+      "productDeleteFailed": "Failed to delete product",
+      "editProduct": "Edit Product",
+      "editProductDescription": "Update product information",
+      "saveChanges": "Save Changes",
+      "saving": "Saving...",
+      "productUpdated": "Product successfully updated",
+      "productUpdateFailed": "Failed to update product"
     },
     "publishProduct": {
       "title": "Publish Product",
