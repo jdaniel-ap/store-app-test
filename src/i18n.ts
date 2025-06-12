@@ -21,7 +21,6 @@ i18n
     resources,
     defaultNS: 'common',
     fallbackLng: 'en',
-    lng: 'pt',
 
     interpolation: {
       escapeValue: false,
@@ -30,6 +29,7 @@ i18n
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
+      lookupLocalStorage: 'i18nextLng',
     },
 
     react: {
