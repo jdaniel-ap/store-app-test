@@ -5,6 +5,7 @@
     "logout": "Logout",
     "language": "Language",
     "cart": "Shopping Cart",
+    "publishProduct": "Publish Product",
     "userMenuDescription": "Manage your account and preferences",
     "version": "Version"
   },
@@ -60,6 +61,26 @@
     "empty": {
       "title": "Page Not Found",
       "message": "The page you are looking for does not exist."
+    },
+    "publishProduct": {
+      "title": "Publish Product",
+      "subtitle": "Share your product with the world",
+      "productDetails": "Product Details",
+      "productTitle": "Product Title",
+      "titlePlaceholder": "Enter your product title",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe your product in detail",
+      "price": "Price (USD)",
+      "category": "Category",
+      "images": "Product Images",
+      "imageUrlPlaceholder": "Enter image URL",
+      "addImage": "Add Image",
+      "preview": "Preview",
+      "noImagePreview": "No image selected",
+      "productTitlePreview": "Your Product Title",
+      "descriptionPreview": "Your product description will appear here",
+      "publishProduct": "Publish Product",
+      "publishing": "Publishing..."
     }
   },
   "auth": {
@@ -72,6 +93,30 @@
     "network": "Connection error. Check your internet.",
     "unauthorized": "Unauthorized access.",
     "notFound": "Resource not found."
+  },
+  "validation": {
+    "title": {
+      "required": "Title is required",
+      "min": "Title must be at least 3 characters",
+      "max": "Title must be less than 100 characters"
+    },
+    "description": {
+      "required": "Description is required",
+      "min": "Description must be at least 10 characters",
+      "max": "Description must be less than 500 characters"
+    },
+    "price": {
+      "min": "Price must be greater than 0",
+      "max": "Price is too high"
+    },
+    "category": {
+      "required": "Category is required"
+    },
+    "images": {
+      "url": "Must be a valid URL",
+      "min": "At least one image is required",
+      "max": "Maximum 5 images allowed"
+    }
   },
   "products": {
     "buyNow": "Buy Now",

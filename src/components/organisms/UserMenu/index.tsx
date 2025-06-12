@@ -12,7 +12,7 @@ import { UserAvatar } from '@/components/atoms';
 import { useAuthStore } from '@/stores';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { ShoppingCart, LogOut, User, Settings } from 'lucide-react';
+import { ShoppingCart, LogOut, User, Settings, Plus } from 'lucide-react';
 import type { PropsWithChildren } from 'react';
 
 function UserMenu({ children }: PropsWithChildren) {
@@ -26,6 +26,10 @@ function UserMenu({ children }: PropsWithChildren) {
 
   const handleViewCart = () => {
     navigate('/cart');
+  };
+
+  const handlePublishProduct = () => {
+    navigate('/publish');
   };
 
   const handleViewProfile = () => {
@@ -91,6 +95,15 @@ function UserMenu({ children }: PropsWithChildren) {
               >
                 <ShoppingCart className="mr-3 h-4 w-4" />
                 {t('navigation.cart', 'Shopping Cart')}
+              </Button>
+
+              <Button
+                variant="ghost"
+                className="w-full justify-start"
+                onClick={handlePublishProduct}
+              >
+                <Plus className="mr-3 h-4 w-4" />
+                {t('navigation.publishProduct')}
               </Button>
 
               <Button

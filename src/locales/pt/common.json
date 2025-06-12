@@ -3,22 +3,9 @@
     "home": "Início",
     "login": "Entrar",
     "logout": "Sair",
-  
-    "products": {
-    "addToCart": "Adicionar ao Carrinho",
-    "buyNow": "Comprar Agora",
-    "outOfStock": "Fora de Estoque",
-    "inStock": "Em Estoque",
-    "inCart": "No Carrinho",
-    "price": "Preço",
-    "description": "Descrição",
-    "details": "Detalhes",
-    "reviews": "Avaliações",
-    "rating": "Classificação",
-    "category": "Categoria"
-  },
     "language": "Idioma",
     "cart": "Carrinho de Compras",
+    "publishProduct": "Publicar Produto",
     "userMenuDescription": "Gerencie sua conta e preferências",
     "version": "Versão"
   },
@@ -74,6 +61,26 @@
     "empty": {
       "title": "Página Não Encontrada",
       "message": "A página que você está procurando não existe."
+    },
+    "publishProduct": {
+      "title": "Publicar Produto",
+      "subtitle": "Compartilhe seu produto com o mundo",
+      "productDetails": "Detalhes do Produto",
+      "productTitle": "Título do Produto",
+      "titlePlaceholder": "Digite o título do seu produto",
+      "description": "Descrição",
+      "descriptionPlaceholder": "Descreva seu produto em detalhes",
+      "price": "Preço (USD)",
+      "category": "Categoria",
+      "images": "Imagens do Produto",
+      "imageUrlPlaceholder": "Digite a URL da imagem",
+      "addImage": "Adicionar Imagem",
+      "preview": "Visualizar",
+      "noImagePreview": "Nenhuma imagem selecionada",
+      "productTitlePreview": "Título do Seu Produto",
+      "descriptionPreview": "A descrição do seu produto aparecerá aqui",
+      "publishProduct": "Publicar Produto",
+      "publishing": "Publicando..."
     }
   },
   "auth": {
@@ -86,6 +93,30 @@
     "network": "Erro de conexão. Verifique sua internet.",
     "unauthorized": "Acesso não autorizado.",
     "notFound": "Recurso não encontrado."
+  },
+  "validation": {
+    "title": {
+      "required": "O título é obrigatório",
+      "min": "O título deve ter pelo menos 3 caracteres",
+      "max": "O título deve ter menos de 100 caracteres"
+    },
+    "description": {
+      "required": "A descrição é obrigatória",
+      "min": "A descrição deve ter pelo menos 10 caracteres",
+      "max": "A descrição deve ter menos de 500 caracteres"
+    },
+    "price": {
+      "min": "O preço deve ser maior que 0",
+      "max": "O preço é muito alto"
+    },
+    "category": {
+      "required": "A categoria é obrigatória"
+    },
+    "images": {
+      "url": "Deve ser uma URL válida",
+      "min": "Pelo menos uma imagem é obrigatória",
+      "max": "Máximo de 5 imagens permitidas"
+    }
   },
   "products": {
     "addToCart": "Adicionar ao Carrinho",

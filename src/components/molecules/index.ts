@@ -1,3 +1,8 @@
 export { FormField, type FormFieldProps } from './FormField';
+export {
+  FormFieldSelect,
+  type FormFieldSelectProps,
+  type SelectOption,
+} from './FormFieldSelect';
 export { default as ProductCard } from './ProductCard';
 export { default as CartItemCard } from './CartItemCard';
