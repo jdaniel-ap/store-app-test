@@ -20,6 +20,19 @@
       "loadingProducts": "Loading awesome products...",
       "noProducts": "No products available at the moment"
     },
+    "cart": {
+      "title": "Shopping Cart",
+      "subtitle": "Review your selected items",
+      "empty": "Your cart is empty",
+      "emptySubtitle": "Add some products to get started",
+      "continueShopping": "Continue Shopping",
+      "checkout": "Proceed to Checkout",
+      "total": "Total",
+      "quantity": "Quantity",
+      "remove": "Remove",
+      "itemsInCart": "{{count}} item in cart",
+      "itemsInCart_other": "{{count}} items in cart"
+    },
     "login": {
       "title": "Sign In",
       "subtitle": "Enter your credentials to access your account",

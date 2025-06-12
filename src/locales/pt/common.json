@@ -20,6 +20,19 @@
       "loadingProducts": "Carregando produtos incríveis...",
       "noProducts": "Nenhum produto disponível no momento"
     },
+    "cart": {
+      "title": "Carrinho de Compras",
+      "subtitle": "Revise seus itens selecionados",
+      "empty": "Seu carrinho está vazio",
+      "emptySubtitle": "Adicione alguns produtos para começar",
+      "continueShopping": "Continuar Comprando",
+      "checkout": "Finalizar Compra",
+      "total": "Total",
+      "quantity": "Quantidade",
+      "remove": "Remover",
+      "itemsInCart": "{{count}} item no carrinho",
+      "itemsInCart_other": "{{count}} itens no carrinho"
+    },
     "login": {
       "title": "Entrar",
       "subtitle": "Digite suas credenciais para acessar sua conta",

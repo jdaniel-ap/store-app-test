@@ -11,19 +11,21 @@ import { Separator } from '@/components/ui/separator';
 import { UserAvatar } from '@/components/atoms';
 import { useAuthStore } from '@/stores';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { ShoppingCart, LogOut, User, Settings } from 'lucide-react';
 import type { PropsWithChildren } from 'react';
 
 function UserMenu({ children }: PropsWithChildren) {
   const { t } = useTranslation();
   const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
   };
 
   const handleViewCart = () => {
-    console.log('Navigate to cart');
+    navigate('/cart');
   };
 
   const handleViewProfile = () => {

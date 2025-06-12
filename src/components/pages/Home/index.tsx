@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import ProductList from '@/components/organisms/ProductList';
 import Loader from '@/components/atoms/Loader';
 
-const productsReq = productService.getProducts(0, 10);
+const productsReq = productService.getProducts(10, 10);
 
 function Home() {
   const { user, isAuthenticated } = useAuthStore();

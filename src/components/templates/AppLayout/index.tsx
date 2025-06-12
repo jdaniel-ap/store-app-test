@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores';
 import { useTranslation } from 'react-i18next';
 import UserAvatar from '@/components/atoms/UserAvatar';
 import { SignInDialog, UserMenu } from '@/components/organisms';
+import { Link } from 'react-router';
 import type { PropsWithChildren } from 'react';
 
 function AppLayout({ children }: PropsWithChildren) {
@@ -14,9 +15,12 @@ function AppLayout({ children }: PropsWithChildren) {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="flex h-24 w-full items-center justify-between px-4 lg:px-20">
-        <Logo className="h-20 w-40" />
+        <Link to="/">
+          <Logo className="h-20 w-40 cursor-pointer" />
+        </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
+
           {isAuthenticated && user ? (
             <UserMenu>
               <UserAvatar name={user.name} imageUrl={user.avatar} />

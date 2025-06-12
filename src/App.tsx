@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router';
 
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
+import Cart from './components/pages/Cart';
 import Empty from './components/pages/Empty';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="*" element={<Empty />} />
     </Routes>
   );
