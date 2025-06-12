@@ -1,9 +1,9 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @font-face {
-  font-family: "Satoshi";
-  src: url("/fonts/satoshi/Satoshi-Variable.ttf") format("truetype");
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi/Satoshi-Variable.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -12,7 +12,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: "Satoshi", sans-serif;
+  --font-sans: 'Satoshi', sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -107,7 +107,6 @@
   --sidebar-ring: oklch(0.527 0.154 150.069);
 }
 
-
 @layer base {
   *,
   *::before,
@@ -115,24 +114,24 @@
     @apply border-border outline-ring/50;
     box-sizing: border-box;
   }
-  
+
   * {
     margin: 0;
     padding: 0;
   }
-  
+
   html,
   body {
     height: 100%;
   }
-  
+
   body {
     @apply bg-background text-foreground font-sans;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   img,
   picture,
   video,
@@ -141,14 +140,14 @@
     display: block;
     max-width: 100%;
   }
-  
+
   input,
   button,
   textarea,
   select {
     font: inherit;
   }
-  
+
   p,
   h1,
   h2,
@@ -158,7 +157,7 @@
   h6 {
     overflow-wrap: break-word;
   }
-  
+
   #root {
     isolation: isolate;
     height: 100%;
