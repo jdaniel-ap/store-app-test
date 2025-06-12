@@ -1,0 +1,37 @@
+{
+  "navigation": {
+    "home": "Início",
+    "login": "Entrar",
+    "logout": "Sair",
+    "language": "Idioma"
+  },
+  "pages": {
+    "home": {
+      "title": "Página Inicial",
+      "welcome": "Bem-vindo"
+    },
+    "login": {
+      "title": "Fazer Login",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Entrar",
+      "loading": "Entrando...",
+      "error": "Erro ao fazer login"
+    },
+    "empty": {
+      "title": "Página Não Encontrada",
+      "message": "A página que você está procurando não existe."
+    }
+  },
+  "auth": {
+    "welcome": "Olá, {{name}}!",
+    "profile": "Perfil",
+    "settings": "Configurações"
+  },
+  "errors": {
+    "generic": "Algo deu errado. Tente novamente.",
+    "network": "Erro de conexão. Verifique sua internet.",
+    "unauthorized": "Acesso não autorizado.",
+    "notFound": "Recurso não encontrado."
+  }
+}

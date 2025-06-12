@@ -1,0 +1,37 @@
+{
+  "navigation": {
+    "home": "Home",
+    "login": "Login",
+    "logout": "Logout",
+    "language": "Language"
+  },
+  "pages": {
+    "home": {
+      "title": "Home Page",
+      "welcome": "Welcome"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Login",
+      "loading": "Logging in...",
+      "error": "Login error"
+    },
+    "empty": {
+      "title": "Page Not Found",
+      "message": "The page you are looking for does not exist."
+    }
+  },
+  "auth": {
+    "welcome": "Hello, {{name}}!",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Connection error. Check your internet.",
+    "unauthorized": "Unauthorized access.",
+    "notFound": "Resource not found."
+  }
+}
