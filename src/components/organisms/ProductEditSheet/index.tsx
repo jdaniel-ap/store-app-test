@@ -123,7 +123,10 @@ function ProductEditSheet({
           </SheetDescription>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 py-6">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-6 px-10 py-6"
+        >
           <FormField
             id="title"
             label={t('pages.publishProduct.productTitle')}
