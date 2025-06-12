@@ -1,26 +1,35 @@
+import { useState, useEffect, use, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import { AppLayout } from '@/components/templates';
 import { FormField, FormFieldSelect } from '@/components/molecules';
 import { Button } from '@/components/ui/button';
+import ProductPreview from '@/components/molecules/ProductPreview';
+import ProductImageGalery from '@/components/molecules/ProductImageGalery';
+import { categoryService, productService } from '@/services';
+
 import {
   createPublishProductSchema,
   type PublishProductFormData,
 } from './schemas';
-import { ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router';
-import ProductPreview from '@/components/molecules/ProductPreview';
-import ProductImageGalery from '@/components/molecules/ProductImageGalery';
+import { toast } from 'sonner';
+import Loader from '@/components/atoms/Loader';
+
+const LIMIT_IMAGES = 5;
+
+const categoriesReq = categoryService.getCategories();
 
 function PublishProduct() {
+  const [isPending, startTransition] = useTransition();
   const { t, i18n } = useTranslation();
   const [imagePreview, setImagePreview] = useState<string>('');
   const [tempImageUrl, setTempImageUrl] = useState<string>('');
-
-  // Create a dynamic schema that updates when the language changes
   const getSchema = () => createPublishProductSchema();
+  const categories = use(categoriesReq);
 
   const {
     register,
@@ -40,23 +49,14 @@ function PublishProduct() {
     },
   });
 
-  // Update the form validation when language changes
-  useEffect(() => {
-    // This will trigger re-validation with the new language when the user interacts with the form
-    getSchema();
-    // Note: The actual re-validation happens on the next interaction with the form
-  }, [i18n.language]);
-
   const formValues = watch();
   const images = formValues.images || [];
 
   const handleAddImage = () => {
-    if (tempImageUrl && images.length < 5) {
+    if (tempImageUrl && images.length < LIMIT_IMAGES) {
       const newImages = [...images, tempImageUrl];
       setValue('images', newImages);
-      if (!imagePreview) {
-        setImagePreview(tempImageUrl);
-      }
+      setImagePreview(tempImageUrl);
       setTempImageUrl('');
     }
   };
@@ -71,7 +71,31 @@ function PublishProduct() {
     }
   };
 
-  const onSubmit = async (data: PublishProductFormData) => {
+  const onSubmit = (data: PublishProductFormData) => {
+    startTransition(async () => {
+      try {
+        await productService.createProduct({
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          categoryId: data.categoryId,
+          images: data.images,
+        });
+        reset();
+        setImagePreview('');
+        toast.success(
+          t('pages.publishProduct.productPublished', {
+            title: data.title,
+          })
+        );
+      } catch (error) {
+        toast.error(
+          t('pages.publishProduct.apiError', {
+            reason: error instanceof Error ? error.message : 'Unknown error',
+          })
+        );
+      }
+    });
     try {
       console.log('Publishing product:', data);
       reset();
@@ -81,27 +105,40 @@ function PublishProduct() {
     }
   };
 
+  useEffect(() => {
+    getSchema();
+  }, [i18n.language]);
+
+  if (isPending) {
+    return (
+      <div className="grid size-full place-content-center bg-black">
+        <div className="animate-pulse">
+          <Loader />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <AppLayout>
+      <header className="mb-8 px-4 md:px-20">
+        <div className="mb-4 flex items-center gap-4">
+          <Link to="/">
+            <Button variant="ghost" size="sm" className="gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              {t('navigation.home')}
+            </Button>
+          </Link>
+        </div>
+
+        <h1 className="mb-2 text-4xl font-bold text-white">
+          {t('pages.publishProduct.title')}
+        </h1>
+        <p className="text-lg text-gray-300">
+          {t('pages.publishProduct.subtitle')}
+        </p>
+      </header>
       <main className="container mx-auto px-4 py-8 md:px-20">
-        <header className="mb-8">
-          <div className="mb-4 flex items-center gap-4">
-            <Link to="/">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                {t('navigation.home')}
-              </Button>
-            </Link>
-          </div>
-
-          <h1 className="mb-2 text-4xl font-bold text-white">
-            {t('pages.publishProduct.title')}
-          </h1>
-          <p className="text-lg text-gray-300">
-            {t('pages.publishProduct.subtitle')}
-          </p>
-        </header>
-
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           <section>
             <h2 className="mb-6 text-2xl font-semibold text-white">
@@ -139,13 +176,12 @@ function PublishProduct() {
               <FormFieldSelect
                 id="product-category"
                 label={t('pages.publishProduct.category')}
-                options={[
-                  { value: 1, label: 'Electronics' },
-                  { value: 2, label: 'Clothing' },
-                  { value: 3, label: 'Books' },
-                  { value: 4, label: 'Home & Garden' },
-                  { value: 5, label: 'Sports' },
-                ]}
+                options={
+                  categories?.map((item) => ({
+                    value: item.id,
+                    label: item.name,
+                  })) || []
+                }
                 register={register('categoryId', { valueAsNumber: true })}
                 error={errors.categoryId}
                 required

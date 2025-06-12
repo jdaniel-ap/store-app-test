@@ -80,7 +80,9 @@
       "productTitlePreview": "Título do Seu Produto",
       "descriptionPreview": "A descrição do seu produto aparecerá aqui",
       "publishProduct": "Publicar Produto",
-      "publishing": "Publicando..."
+      "publishing": "Publicando...",
+      "productPublished": "Sucesso! Seu produto \"{{title}}\" foi publicado.",
+      "apiError": "Falha ao publicar produto: {{reason}}"
     }
   },
   "auth": {
