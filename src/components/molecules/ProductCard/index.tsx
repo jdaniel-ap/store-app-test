@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
+import { Check, Minus, Plus } from 'lucide-react';
+
 import { ProductImage } from '@/components/atoms';
 import { Button } from '@/components/ui/button';
 import { useCartStore } from '@/stores';
 import type { Product } from '@/services';
-import { Check, Minus, Plus } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -12,8 +13,6 @@ interface ProductCardProps {
 function ProductCard({ product }: ProductCardProps) {
   const { t } = useTranslation();
   const { addItem, items, updateQuantity, removeItem } = useCartStore();
-
-  // Verificar si el producto está en el carrito
   const cartItem = items.find((item) => item.id === product.id);
   const isInCart = !!cartItem;
   const quantity = cartItem?.quantity || 0;
@@ -41,7 +40,7 @@ function ProductCard({ product }: ProductCardProps) {
       key={product.id}
       className="bg-accent overflow-hidden rounded-lg shadow-md transition-shadow duration-300 hover:shadow-lg"
     >
-      <figure className="relative aspect-square">
+      <figure className="relative aspect-square cursor-pointer">
         <ProductImage
           src={product.images[0]}
           alt={`${product.title} - Product image`}
