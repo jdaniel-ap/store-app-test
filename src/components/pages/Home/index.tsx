@@ -1,15 +1,13 @@
 import { useAuthStore } from '@/stores';
 import { useTranslation } from 'react-i18next';
-import { Header } from '@/components/organisms';
+import { AppLayout } from '@/components/templates';
 
 function Home() {
   const { user, isAuthenticated } = useAuthStore();
   const { t } = useTranslation();
 
   return (
-    <main className="min-h-screen">
-      <Header />
-
+    <AppLayout>
       <section className="flex flex-col items-center justify-center px-4 py-20">
         <h1 className="mb-4 text-center text-4xl font-bold">
           {t('pages.home.welcome')}
@@ -20,7 +18,7 @@ function Home() {
           </p>
         )}
       </section>
-    </main>
+    </AppLayout>
   );
 }
 

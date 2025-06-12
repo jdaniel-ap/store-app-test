@@ -8,6 +8,9 @@
     "userMenuDescription": "Manage your account and preferences",
     "version": "Version"
   },
+  "footer": {
+    "copyright": "All rights reserved"
+  },
   "pages": {
     "home": {
       "title": "Home Page",

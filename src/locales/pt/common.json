@@ -8,6 +8,9 @@
     "userMenuDescription": "Gerencie sua conta e preferências",
     "version": "Versão"
   },
+  "footer": {
+    "copyright": "Todos os direitos reservados"
+  },
   "pages": {
     "home": {
       "title": "Página Inicial",
