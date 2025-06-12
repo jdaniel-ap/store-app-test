@@ -3,34 +3,11 @@ import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export interface AppLayoutHeaderProps {
-  /**
-   * The title to display in the header
-   */
   title: string;
-
-  /**
-   * Optional subtitle to display under the title
-   */
   subtitle?: string;
-
-  /**
-   * If provided, shows a back button with this path as destination
-   */
   backTo?: string;
-
-  /**
-   * Label for the back button, defaults to "Home"
-   */
   backLabel?: string;
-
-  /**
-   * Additional CSS classes for the header
-   */
   className?: string;
-
-  /**
-   * Whether the content should be centered
-   */
   center?: boolean;
 }
 

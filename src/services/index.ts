@@ -99,12 +99,45 @@ export const authService = {
   },
 };
 
+export interface ProductFilters {
+  title?: string;
+  price_min?: number;
+  price_max?: number;
+}
+
 export const productService = {
-  getProducts: async (offset?: number, limit?: number): Promise<Product[]> => {
-    const endpoint =
+  getProducts: async (
+    offset?: number,
+    limit?: number,
+    filters?: ProductFilters
+  ): Promise<Product[]> => {
+    let endpoint =
       offset !== undefined && limit !== undefined
         ? API_ENDPOINTS.products.paginated(offset, limit)
         : API_ENDPOINTS.products.list;
+
+    if (filters) {
+      const filterParams = new URLSearchParams();
+
+      if (filters.title) {
+        filterParams.append('title', filters.title);
+      }
+
+      if (filters.price_min) {
+        filterParams.append('price_min', filters.price_min.toString());
+      }
+
+      if (filters.price_max) {
+        filterParams.append('price_max', filters.price_max.toString());
+      }
+
+      const filterString = filterParams.toString();
+      if (filterString) {
+        endpoint += endpoint.includes('?')
+          ? `&${filterString}`
+          : `?${filterString}`;
+      }
+    }
 
     return api.get<Product[]>(endpoint);
   },

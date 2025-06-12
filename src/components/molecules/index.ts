@@ -8,3 +8,5 @@ export { default as ProductCard } from './ProductCard';
 export { default as CartItemCard } from './CartItemCard';
 export { default as ImageGallery } from './ImageGallery';
 export { default as ProductNotFound } from './ProductNotFound';
+export { default as ProductPagination } from './Pagination';
+export { default as FilterProducts } from './ProductFilters';

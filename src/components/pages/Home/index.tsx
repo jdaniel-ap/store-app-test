@@ -1,34 +1,25 @@
 import { useTranslation } from 'react-i18next';
 import { AppLayout } from '@/components/templates';
-import { productService } from '@/services';
-import { useQuery } from '@tanstack/react-query';
 import ProductList from '@/components/organisms/ProductList';
 import Loader from '@/components/atoms/Loader';
-import { useState } from 'react';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
+import { ProductPagination } from '@/components/molecules';
+import FilterProducts from '@/components/molecules/ProductFilters';
+import { useProductFilters } from '@/hooks';
 
 const MAX_PRODUCTS = 10;
 
 function Home() {
   const { t } = useTranslation();
-  const [page, setPage] = useState(0);
-
   const {
-    data: products,
+    page,
+    filters,
+    products,
     isLoading,
     isError,
-  } = useQuery({
-    queryKey: ['products', page, MAX_PRODUCTS],
-    queryFn: () => productService.getProducts(page, MAX_PRODUCTS),
-  });
+    totalPages,
+    handleFilterChange,
+    handlePageChange,
+  } = useProductFilters({ itemsPerPage: MAX_PRODUCTS });
 
   return (
     <AppLayout>
@@ -46,9 +37,11 @@ function Home() {
                 {t('pages.home.featuredProductsSubtitle')}
               </p>
             </div>
-            {/*TODO: aqui van los filtros debjo de esto, campo de texto y categoria */}
+            <FilterProducts
+              onFilterChange={handleFilterChange}
+              initialFilters={filters}
+            />
           </div>
-
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-20">
               <Loader />
@@ -65,47 +58,13 @@ function Home() {
           ) : products ? (
             <>
               <ProductList products={products} />
-              <div className="mt-8 flex flex-col items-center space-y-4">
-                <Pagination>
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious
-                        onClick={() => setPage(Math.max(0, page - 1))}
-                        className={
-                          page === 0 ? 'pointer-events-none opacity-50' : ''
-                        }
-                      />
-                    </PaginationItem>
-
-                    {[...Array(5)].map((_, i) => (
-                      <PaginationItem key={i}>
-                        <PaginationLink
-                          isActive={page === i}
-                          onClick={() => setPage(i)}
-                        >
-                          {i + 1}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ))}
-
-                    <PaginationItem>
-                      <PaginationEllipsis />
-                    </PaginationItem>
-
-                    <PaginationItem>
-                      <PaginationNext onClick={() => setPage(page + 1)} />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-                <p className="text-sm text-gray-400">
-                  {t('pages.home.showingPage', {
-                    page: page + 1,
-                    products: products.length,
-                    offset: page * MAX_PRODUCTS + 1,
-                    to: page * MAX_PRODUCTS + products.length,
-                  })}
-                </p>
-              </div>
+              <ProductPagination
+                page={page}
+                onPageChange={handlePageChange}
+                itemCount={products.length}
+                itemsPerPage={MAX_PRODUCTS}
+                totalPages={totalPages}
+              />
             </>
           ) : null}
         </section>

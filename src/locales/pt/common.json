@@ -26,7 +26,21 @@
       "featuredProductsSubtitle": "Produtos selecionados especialmente para você",
       "loadingProducts": "Carregando produtos incríveis...",
       "noProducts": "Nenhum produto disponível no momento",
-      "showingPage": "Página {{page}} · Mostrando {{products}} produtos · {{offset}}-{{to}}"
+      "showingPage": "Página {{page}} · Mostrando {{products}} produtos · {{offset}}-{{to}}",
+      "filters": {
+        "title": "Filtros",
+        "searchByName": "Buscar por Nome",
+        "searchPlaceholder": "Buscar por nome...",
+        "category": "Categoria",
+        "allCategories": "Todas as Categorias",
+        "minPrice": "Preço Mínimo",
+        "maxPrice": "Preço Máximo",
+        "minPricePlaceholder": "Min",
+        "maxPricePlaceholder": "Max",
+        "apply": "Aplicar Filtros",
+        "clear": "Limpar",
+        "toggleFilters": "Alternar Filtros"
+      }
     },
     "cart": {
       "title": "Carrinho de Compras",
