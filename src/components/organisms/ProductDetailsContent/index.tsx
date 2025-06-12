@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { ImageGallery } from '@/components/molecules';
-import { ConfirmDialog } from '@/components/organisms';
+import { ConfirmDialog, ProductEditSheet } from '@/components/organisms';
 import type { Product } from '@/services';
 import { productService } from '@/services';
 import { useAuthStore, useCartStore } from '@/stores';
@@ -159,14 +159,21 @@ function ProductDetailsContent({ productPromise }: ProductDetailsContentProps) {
                 {t('products.delete')}
               </Button>
             </ConfirmDialog>
-            <Button
-              type="button"
-              className="w-full gap-2"
-              aria-label={`Edit ${product.title}`}
+            <ProductEditSheet
+              product={product}
+              onUpdate={() => {
+                window.location.reload();
+              }}
             >
-              <Edit className="h-5 w-5" />
-              {t('products.edit')}
-            </Button>
+              <Button
+                type="button"
+                className="w-full gap-2"
+                aria-label={`Edit ${product.title}`}
+              >
+                <Edit className="h-5 w-5" />
+                {t('products.edit')}
+              </Button>
+            </ProductEditSheet>
           </div>
         )}
       </div>
