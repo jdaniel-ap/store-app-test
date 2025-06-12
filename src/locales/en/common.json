@@ -25,7 +25,8 @@
       "featuredProducts": "🌟 Discover Our Amazing Collection",
       "featuredProductsSubtitle": "Handpicked products just for you",
       "loadingProducts": "Loading awesome products...",
-      "noProducts": "No products available at the moment"
+      "noProducts": "No products available at the moment",
+      "showingPage": "Page {{page}} · Showing {{products}} products · {{offset}}-{{to}}"
     },
     "cart": {
       "title": "Shopping Cart",

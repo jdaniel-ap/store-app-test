@@ -25,7 +25,8 @@
       "featuredProducts": "✨ Descubra Nossa Coleção Incrível",
       "featuredProductsSubtitle": "Produtos selecionados especialmente para você",
       "loadingProducts": "Carregando produtos incríveis...",
-      "noProducts": "Nenhum produto disponível no momento"
+      "noProducts": "Nenhum produto disponível no momento",
+      "showingPage": "Página {{page}} · Mostrando {{products}} produtos · {{offset}}-{{to}}"
     },
     "cart": {
       "title": "Carrinho de Compras",
