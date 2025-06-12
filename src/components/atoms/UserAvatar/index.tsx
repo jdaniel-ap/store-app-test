@@ -1,6 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { cn } from '@/lib/utils';
 
-function UserAvatar({ imageUrl, name }: { imageUrl?: string; name?: string }) {
+interface UserAvatarProps {
+  imageUrl?: string;
+  name?: string;
+  className?: string;
+}
+
+function UserAvatar({ imageUrl, name, className }: UserAvatarProps) {
   const getInitials = () => {
     if (!name) return 'UK';
     const names = name.split(' ');
@@ -15,7 +22,7 @@ function UserAvatar({ imageUrl, name }: { imageUrl?: string; name?: string }) {
     );
   };
   return (
-    <Avatar className="rounded-full">
+    <Avatar className={cn('rounded-full', className)}>
       <AvatarImage src={imageUrl} alt={name} />
       <AvatarFallback>{getInitials()}</AvatarFallback>
     </Avatar>

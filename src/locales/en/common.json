@@ -3,7 +3,10 @@
     "home": "Home",
     "login": "Login",
     "logout": "Logout",
-    "language": "Language"
+    "language": "Language",
+    "cart": "Shopping Cart",
+    "userMenuDescription": "Manage your account and preferences",
+    "version": "Version"
   },
   "pages": {
     "home": {

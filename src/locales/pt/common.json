@@ -3,7 +3,10 @@
     "home": "Início",
     "login": "Entrar",
     "logout": "Sair",
-    "language": "Idioma"
+    "language": "Idioma",
+    "cart": "Carrinho de Compras",
+    "userMenuDescription": "Gerencie sua conta e preferências",
+    "version": "Versão"
   },
   "pages": {
     "home": {
