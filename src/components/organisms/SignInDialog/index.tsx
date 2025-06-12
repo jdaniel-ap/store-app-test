@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import {
@@ -12,15 +13,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { FormField } from '@/components/molecules';
 import { useAuthStore } from '@/stores';
 import type { LoginCredentials } from '@/services';
-
-interface SignInFormData {
-  email: string;
-  password: string;
-}
+import { createSignInSchema, type SignInFormData } from './schemas';
 
 function SignInDialog({ children }: PropsWithChildren) {
   const { t } = useTranslation();
@@ -28,12 +24,15 @@ function SignInDialog({ children }: PropsWithChildren) {
   const [showPassword, setShowPassword] = useState(false);
   const { login, isLoading, error, clearError } = useAuthStore();
 
+  const signInSchema = createSignInSchema(t);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
     mode: 'onBlur',
   });
 
@@ -71,59 +70,32 @@ function SignInDialog({ children }: PropsWithChildren) {
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium">
-              {t('pages.login.email')}
-            </Label>
-            <div className="relative">
-              <Mail className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
-              <Input
-                id="email"
-                type="email"
-                placeholder="seu@email.com"
-                className="pl-10"
-                {...register('email', {
-                  required: t('pages.login.emailRequired'),
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: t('pages.login.emailInvalid'),
-                  },
-                })}
-                aria-invalid={errors.email ? 'true' : 'false'}
-              />
-            </div>
-            {errors.email && (
-              <p className="text-destructive flex items-center gap-1 text-sm">
-                <AlertCircle className="h-3 w-3" />
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password" className="text-sm font-medium">
-              {t('pages.login.password')}
-            </Label>
-            <div className="relative">
-              <Lock className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
-              <Input
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••"
-                className="pr-10 pl-10"
-                {...register('password', {
-                  required: t('pages.login.passwordRequired'),
-                  minLength: {
-                    value: 6,
-                    message: t('pages.login.passwordMin'),
-                  },
-                })}
-                aria-invalid={errors.password ? 'true' : 'false'}
-              />
+          <FormField
+            id="email"
+            label={t('pages.login.email')}
+            type="email"
+            placeholder="seu@email.com"
+            icon={Mail}
+            register={register('email')}
+            error={errors.email}
+            required
+          />
+          <FormField
+            id="password"
+            label={t('pages.login.password')}
+            type={showPassword ? 'text' : 'password'}
+            placeholder="••••••••"
+            icon={Lock}
+            register={register('password')}
+            error={errors.password}
+            required
+            rightElement={
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 transform transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
                 tabIndex={-1}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
                   <EyeOff className="h-4 w-4" />
@@ -131,15 +103,8 @@ function SignInDialog({ children }: PropsWithChildren) {
                   <Eye className="h-4 w-4" />
                 )}
               </button>
-            </div>
-            {errors.password && (
-              <p className="text-destructive flex items-center gap-1 text-sm">
-                <AlertCircle className="h-3 w-3" />
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
+            }
+          />
           {error && (
             <div className="bg-destructive/10 border-destructive/20 rounded-md border p-3">
               <p className="text-destructive flex items-center gap-2 text-sm">
@@ -148,7 +113,6 @@ function SignInDialog({ children }: PropsWithChildren) {
               </p>
             </div>
           )}
-
           <Button
             type="submit"
             className="w-full"

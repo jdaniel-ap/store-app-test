@@ -20,8 +20,13 @@
       "error": "Login error",
       "emailRequired": "Email is required",
       "emailInvalid": "Please enter a valid email address",
+      "emailTooLong": "Email address is too long",
+      "emailDisposable": "Disposable email addresses are not allowed",
       "passwordRequired": "Password is required",
-      "passwordMin": "Password must be at least 6 characters"
+      "passwordMin": "Password must be at least 6 characters",
+      "passwordMax": "Password must be less than 100 characters",
+      "passwordMustContainLetter": "Password must contain at least one letter",
+      "passwordMustContainNumberOrSpecial": "Password must contain at least one number or special character"
     },
     "empty": {
       "title": "Page Not Found",
