@@ -11,12 +11,17 @@
       "welcome": "Welcome"
     },
     "login": {
-      "title": "Login",
+      "title": "Sign In",
+      "subtitle": "Enter your credentials to access your account",
       "email": "Email",
       "password": "Password",
-      "submit": "Login",
-      "loading": "Logging in...",
-      "error": "Login error"
+      "submit": "Sign In",
+      "loading": "Signing in...",
+      "error": "Login error",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters"
     },
     "empty": {
       "title": "Page Not Found",

@@ -4,6 +4,7 @@ import { LanguageSwitcher } from '@/components/atoms/LanguageSwitcher';
 import { useAuthStore } from '@/stores';
 import { useTranslation } from 'react-i18next';
 import UserAvatar from '@/components/atoms/UserAvatar';
+import SignInDialog from '@/components/organisms/SignInDialog';
 
 function Home() {
   const { user, isAuthenticated } = useAuthStore();
@@ -17,10 +18,12 @@ function Home() {
           <LanguageSwitcher />
           {isAuthenticated && user ? (
             <Button variant="ghost" size="icon">
-              <UserAvatar name={'jose'} />
+              <UserAvatar name={user.name} imageUrl={user.avatar} />
             </Button>
           ) : (
-            <Button>{t('navigation.login')}</Button>
+            <SignInDialog>
+              <Button>{t('navigation.login')}</Button>
+            </SignInDialog>
           )}
         </div>
       </header>
