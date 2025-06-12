@@ -14,7 +14,7 @@ function Home() {
         </h1>
         {isAuthenticated && user && (
           <p className="text-xl text-gray-600">
-            {t('auth.welcome', { name: user.name })}
+            {t('auth.welcome', { name: user.name || 'User' })}
           </p>
         )}
       </section>

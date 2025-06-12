@@ -19,9 +19,7 @@ function AppLayout({ children }: PropsWithChildren) {
           <LanguageSwitcher />
           {isAuthenticated && user ? (
             <UserMenu>
-              <Button variant="ghost" size="icon">
-                <UserAvatar name={user.name} imageUrl={user.avatar} />
-              </Button>
+              <UserAvatar name={user.name} imageUrl={user.avatar} />
             </UserMenu>
           ) : (
             <SignInDialog>
