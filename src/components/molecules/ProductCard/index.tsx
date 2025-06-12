@@ -40,7 +40,10 @@ function ProductCard({ product }: ProductCardProps) {
       key={product.id}
       className="bg-accent overflow-hidden rounded-lg shadow-md transition-shadow duration-300 hover:shadow-lg"
     >
-      <figure className="relative aspect-square cursor-pointer">
+      <figure
+        className="relative aspect-square cursor-pointer"
+        onClick={() => (window.location.href = `/products/${product.id}`)}
+      >
         <ProductImage
           src={product.images[0]}
           alt={`${product.title} - Product image`}
@@ -55,7 +58,10 @@ function ProductCard({ product }: ProductCardProps) {
 
       <div className="p-4">
         <header>
-          <h3 className="text-foreground mb-2 line-clamp-1 text-lg font-semibold">
+          <h3
+            className="text-foreground hover:text-primary mb-2 line-clamp-1 cursor-pointer text-lg font-semibold transition-colors"
+            onClick={() => (window.location.href = `/products/${product.id}`)}
+          >
             {product.title}
           </h3>
         </header>

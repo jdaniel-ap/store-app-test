@@ -9,6 +9,12 @@
     "userMenuDescription": "Gerencie sua conta e preferências",
     "version": "Versão"
   },
+  "common": {
+    "backToHome": "Voltar ao Início",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "loading": "Carregando..."
+  },
   "footer": {
     "copyright": "Todos os direitos reservados"
   },
@@ -63,6 +69,18 @@
       "title": "Página Não Encontrada",
       "message": "A página que você está procurando não existe."
     },
+    "productDetails": {
+      "title": "Detalhes do Produto",
+      "subtitle": "Visualizar e gerenciar informações do produto",
+      "loading": "Carregando detalhes do produto...",
+      "description": "Descrição do Produto",
+      "addToCart": "Adicionar ao Carrinho",
+      "goToCart": "Ir para o Carrinho",
+      "deleteConfirmTitle": "Excluir Produto",
+      "deleteConfirmDescription": "Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.",
+      "productDeleted": "Produto excluído com sucesso",
+      "productDeleteFailed": "Falha ao excluir produto"
+    },
     "publishProduct": {
       "title": "Publicar Produto",
       "subtitle": "Compartilhe seu produto com o mundo",
@@ -95,7 +113,8 @@
     "generic": "Algo deu errado. Tente novamente.",
     "network": "Erro de conexão. Verifique sua internet.",
     "unauthorized": "Acesso não autorizado.",
-    "notFound": "Recurso não encontrado."
+    "notFound": "Recurso não encontrado.",
+    "productNotFound": "Produto não encontrado"
   },
   "validation": {
     "title": {
@@ -132,6 +151,9 @@
     "details": "Detalhes",
     "reviews": "Avaliações",
     "rating": "Classificação",
-    "category": "Categoria"
+    "category": "Categoria",
+    "edit": "Editar Produto",
+    "delete": "Excluir Produto",
+    "goToCart": "Ver Carrinho"
   }
 }

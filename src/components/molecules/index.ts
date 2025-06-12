@@ -6,3 +6,4 @@ export {
 } from './FormFieldSelect';
 export { default as ProductCard } from './ProductCard';
 export { default as CartItemCard } from './CartItemCard';
+export { default as ImageGallery } from './ImageGallery';
