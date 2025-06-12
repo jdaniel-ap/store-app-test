@@ -2,8 +2,8 @@ import Logo from '@/assets/images/logos/colorfull-logo.svg?react';
 import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/atoms/LanguageSwitcher';
 import { useAuthStore } from '@/stores';
-import { Menu } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import UserAvatar from '@/components/atoms/UserAvatar';
 
 function Home() {
   const { user, isAuthenticated } = useAuthStore();
@@ -16,12 +16,8 @@ function Home() {
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
           {isAuthenticated && user ? (
-            <Button
-              variant="outline"
-              size="lg"
-              className="block h-16 w-16 lg:hidden"
-            >
-              <Menu className="size-8 text-white" />
+            <Button variant="ghost" size="icon">
+              <UserAvatar name={'jose'} />
             </Button>
           ) : (
             <Button>{t('navigation.login')}</Button>
