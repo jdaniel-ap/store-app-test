@@ -16,7 +16,7 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "prepare": "husky",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open --config-file cypress.config.mts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
