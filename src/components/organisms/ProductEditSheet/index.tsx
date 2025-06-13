@@ -115,7 +115,7 @@ function ProductEditSheet({
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
-          <SheetTitle className="text-white">
+          <SheetTitle className="text-white" data-testid="edit-sheet-title">
             {t('pages.productDetails.editProduct')}
           </SheetTitle>
           <SheetDescription>

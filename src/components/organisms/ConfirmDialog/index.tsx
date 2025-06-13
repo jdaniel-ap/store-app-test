@@ -51,7 +51,10 @@ function ConfirmDialog({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle
+            className="flex items-center gap-2"
+            data-testid="confirm-dialog-title"
+          >
             {variant === 'destructive' && (
               <AlertCircle className="text-destructive h-5 w-5" />
             )}

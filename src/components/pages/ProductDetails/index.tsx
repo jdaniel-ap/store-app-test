@@ -38,7 +38,7 @@ function ProductDetails() {
     return (
       <AppLayout>
         <div className="container mx-auto px-4 py-8">
-          <div className="text-center">
+          <div className="text-center" data-testid="no-id-error">
             <h1 className="text-2xl font-bold text-white">
               {t('errors.productNotFound')}
             </h1>

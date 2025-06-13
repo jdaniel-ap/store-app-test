@@ -1,246 +1,316 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '../../../test/test-utils';
+import { render, screen, waitFor } from '../../../test/test-utils';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './index';
-import { useAuthStore } from '@/stores';
+import type { Product } from '@/services';
 
-vi.mock('@/stores', () => ({
-  useAuthStore: vi.fn(),
+vi.mock('@/assets/images/logos/colorfull-logo.svg?react', () => ({
+  default: () => <div data-testid="logo">Logo</div>,
 }));
 
-const mockUseAuthStore = vi.mocked(useAuthStore);
+vi.mock('@/hooks', () => ({
+  useProductFilters: vi.fn(),
+}));
+
+vi.mock('@/services', () => ({
+  productService: {
+    getProducts: vi.fn(),
+  },
+}));
+
+import { useProductFilters } from '@/hooks';
+
+const mockUseProductFilters = vi.mocked(useProductFilters);
+
+const mockCategory = {
+  id: 1,
+  name: 'Electronics',
+  image: 'electronics.jpg',
+  creationAt: '2024-01-01',
+  updatedAt: '2024-01-01',
+};
+
+const mockProducts: Product[] = [
+  {
+    id: 1,
+    title: 'Test Product 1',
+    description: 'Description 1',
+    price: 29.99,
+    category: mockCategory,
+    images: ['image1.jpg'],
+    creationAt: '2024-01-01',
+    updatedAt: '2024-01-01',
+  },
+  {
+    id: 2,
+    title: 'Test Product 2',
+    description: 'Description 2',
+    price: 49.99,
+    category: mockCategory,
+    images: ['image2.jpg'],
+    creationAt: '2024-01-02',
+    updatedAt: '2024-01-02',
+  },
+];
 
 describe('Home Component', () => {
+  let queryClient: QueryClient;
+
   beforeEach(() => {
     vi.clearAllMocks();
-  });
-
-  describe('when user is logged out', () => {
-    it('shows only welcome message without user greeting', () => {
-      mockUseAuthStore.mockReturnValue({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        login: vi.fn(),
-        logout: vi.fn(),
-        getProfile: vi.fn(),
-        refreshAuth: vi.fn(),
-        clearError: vi.fn(),
-        setLoading: vi.fn(),
-        accessToken: null,
-        refreshToken: null,
-        error: null,
-      });
-
-      render(<Home />);
-
-      expect(screen.getByRole('heading')).toHaveTextContent('Welcome');
-      expect(screen.queryByText(/Hello,/)).not.toBeInTheDocument();
-    });
-
-    it('shows login button when user is not authenticated', () => {
-      mockUseAuthStore.mockReturnValue({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        login: vi.fn(),
-        logout: vi.fn(),
-        getProfile: vi.fn(),
-        refreshAuth: vi.fn(),
-        clearError: vi.fn(),
-        setLoading: vi.fn(),
-        accessToken: null,
-        refreshToken: null,
-        error: null,
-      });
-
-      render(<Home />);
-
-      const loginButton = screen.getByRole('button', { name: /Login/i });
-      expect(loginButton).toBeInTheDocument();
-    });
-
-    it('does not show personalized content when not authenticated', () => {
-      mockUseAuthStore.mockReturnValue({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        login: vi.fn(),
-        logout: vi.fn(),
-        getProfile: vi.fn(),
-        refreshAuth: vi.fn(),
-        clearError: vi.fn(),
-        setLoading: vi.fn(),
-        accessToken: null,
-        refreshToken: null,
-        error: null,
-      });
-
-      render(<Home />);
-
-      expect(screen.queryByText(/Hello,/)).not.toBeInTheDocument();
-      expect(screen.getByRole('heading')).toHaveTextContent('Welcome');
+    queryClient = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+        },
+      },
     });
   });
 
-  describe('when user is logged in', () => {
-    it('shows personalized welcome message with user name', () => {
-      const mockUser = {
-        id: '1',
-        name: 'John Doe',
-        email: 'john@example.com',
-      };
-
-      mockUseAuthStore.mockReturnValue({
-        user: mockUser,
-        isAuthenticated: true,
-        isLoading: false,
-        login: vi.fn(),
-        logout: vi.fn(),
-        getProfile: vi.fn(),
-        refreshAuth: vi.fn(),
-        clearError: vi.fn(),
-        setLoading: vi.fn(),
-        accessToken: 'mock-token',
-        refreshToken: 'mock-refresh-token',
-        error: null,
-      });
-
-      render(<Home />);
-
-      expect(screen.getByRole('heading')).toHaveTextContent('Welcome');
-      expect(screen.getByText('Hello, John Doe!')).toBeInTheDocument();
-    });
-
-    it('handles user with empty name when logged in', () => {
-      const mockUser = {
-        id: '3',
-        name: '',
-        email: 'user@example.com',
-      };
-
-      mockUseAuthStore.mockReturnValue({
-        user: mockUser,
-        isAuthenticated: true,
-        isLoading: false,
-        login: vi.fn(),
-        logout: vi.fn(),
-        getProfile: vi.fn(),
-        refreshAuth: vi.fn(),
-        clearError: vi.fn(),
-        setLoading: vi.fn(),
-        accessToken: 'mock-token',
-        refreshToken: 'mock-refresh-token',
-        error: null,
-      });
-
-      render(<Home />);
-
-      expect(screen.getByText('Hello, User!')).toBeInTheDocument();
-    });
-  });
-
-  describe('edge cases', () => {
-    it('does not show personalized greeting when authenticated but user is null', () => {
-      mockUseAuthStore.mockReturnValue({
-        user: null,
-        isAuthenticated: true,
-        isLoading: false,
-        login: vi.fn(),
-        logout: vi.fn(),
-        getProfile: vi.fn(),
-        refreshAuth: vi.fn(),
-        clearError: vi.fn(),
-        setLoading: vi.fn(),
-        accessToken: 'mock-token',
-        refreshToken: 'mock-refresh-token',
-        error: null,
-      });
-
-      render(<Home />);
-
-      expect(screen.getByRole('heading')).toHaveTextContent('Welcome');
-      expect(screen.queryByText(/Hello,/)).not.toBeInTheDocument();
-    });
-  });
-
-  it('renders within AppLayout', () => {
-    mockUseAuthStore.mockReturnValue({
-      user: null,
-      isAuthenticated: false,
-      isLoading: false,
-      login: vi.fn(),
-      logout: vi.fn(),
-      getProfile: vi.fn(),
-      refreshAuth: vi.fn(),
-      clearError: vi.fn(),
-      setLoading: vi.fn(),
-      accessToken: null,
-      refreshToken: null,
-      error: null,
-    });
-
-    render(<Home />);
-
-    expect(screen.getByRole('banner')).toBeInTheDocument();
-    expect(screen.getByRole('main')).toBeInTheDocument();
-    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
-  });
-
-  it('applies correct CSS classes', () => {
-    mockUseAuthStore.mockReturnValue({
-      user: null,
-      isAuthenticated: false,
-      isLoading: false,
-      login: vi.fn(),
-      logout: vi.fn(),
-      getProfile: vi.fn(),
-      refreshAuth: vi.fn(),
-      clearError: vi.fn(),
-      setLoading: vi.fn(),
-      accessToken: null,
-      refreshToken: null,
-      error: null,
-    });
-
-    render(<Home />);
-
-    const section = screen.getByRole('heading').closest('section');
-    expect(section).toHaveClass(
-      'flex',
-      'flex-col',
-      'items-center',
-      'justify-center',
-      'px-4',
-      'py-20'
+  const renderWithQueryClient = (component: React.ReactElement) => {
+    return render(
+      <QueryClientProvider client={queryClient}>
+        {component}
+      </QueryClientProvider>
     );
+  };
 
-    const heading = screen.getByRole('heading');
-    expect(heading).toHaveClass('mb-4', 'text-center', 'text-4xl', 'font-bold');
+  describe('when products are loading', () => {
+    it('shows loading state with loader and loading message', () => {
+      mockUseProductFilters.mockReturnValue({
+        page: 1,
+        setPage: vi.fn(),
+        filters: {},
+        setFilters: vi.fn(),
+        products: undefined,
+        isLoading: true,
+        isError: false,
+        totalPages: 0,
+        handlePageChange: vi.fn(),
+        handleFilterChange: vi.fn(),
+      });
+
+      renderWithQueryClient(<Home />);
+
+      expect(
+        screen.getByText('Loading awesome products...')
+      ).toBeInTheDocument();
+
+      const loaders = screen.getAllByTestId('loader');
+      expect(loaders.length).toBeGreaterThan(0);
+    });
   });
 
-  it('should have proper semantic structure', () => {
-    mockUseAuthStore.mockReturnValue({
-      user: null,
-      isAuthenticated: false,
-      isLoading: false,
-      login: vi.fn(),
-      logout: vi.fn(),
-      getProfile: vi.fn(),
-      refreshAuth: vi.fn(),
-      clearError: vi.fn(),
-      setLoading: vi.fn(),
-      accessToken: null,
-      refreshToken: null,
-      error: null,
+  describe('when there is an error loading products', () => {
+    it('shows error message', () => {
+      mockUseProductFilters.mockReturnValue({
+        page: 1,
+        setPage: vi.fn(),
+        filters: {},
+        setFilters: vi.fn(),
+        products: undefined,
+        isLoading: false,
+        isError: true,
+        totalPages: 0,
+        handlePageChange: vi.fn(),
+        handleFilterChange: vi.fn(),
+      });
+
+      renderWithQueryClient(<Home />);
+
+      expect(
+        screen.getByText('Something went wrong. Please try again.')
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe('when products are loaded successfully', () => {
+    beforeEach(() => {
+      mockUseProductFilters.mockReturnValue({
+        page: 1,
+        setPage: vi.fn(),
+        filters: {},
+        setFilters: vi.fn(),
+        products: mockProducts,
+        isLoading: false,
+        isError: false,
+        totalPages: 3,
+        handlePageChange: vi.fn(),
+        handleFilterChange: vi.fn(),
+      });
     });
 
-    render(<Home />);
+    it('renders the featured products heading and subtitle', async () => {
+      renderWithQueryClient(<Home />);
 
-    const section = screen.getByRole('heading').closest('section');
-    expect(section).toBeInTheDocument();
-    expect(section?.tagName).toBe('SECTION');
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+          '🌟 Discover Our Amazing Collection'
+        );
+      });
 
-    const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toBeInTheDocument();
+      expect(
+        screen.getByText('Handpicked products just for you')
+      ).toBeInTheDocument();
+    });
+
+    it('renders product filters component', async () => {
+      renderWithQueryClient(<Home />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Filters')).toBeInTheDocument();
+      });
+    });
+
+    it('renders product list with products', async () => {
+      renderWithQueryClient(<Home />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Test Product 1')).toBeInTheDocument();
+        expect(screen.getByText('Test Product 2')).toBeInTheDocument();
+
+        expect(screen.getByText('$29.99')).toBeInTheDocument();
+        expect(screen.getByText('$49.99')).toBeInTheDocument();
+      });
+    });
+
+    it('renders pagination component', async () => {
+      renderWithQueryClient(<Home />);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('pagination')).toBeInTheDocument();
+      });
+    });
+
+    it('calls handleFilterChange when filters are applied', async () => {
+      const mockHandleFilterChange = vi.fn();
+      mockUseProductFilters.mockReturnValue({
+        page: 1,
+        setPage: vi.fn(),
+        filters: {},
+        setFilters: vi.fn(),
+        products: mockProducts,
+        isLoading: false,
+        isError: false,
+        totalPages: 3,
+        handlePageChange: vi.fn(),
+        handleFilterChange: mockHandleFilterChange,
+      });
+
+      renderWithQueryClient(<Home />);
+
+      await waitFor(() => {
+        const filterButton = screen.getByText('Apply Filters');
+        filterButton.click();
+      });
+
+      expect(mockHandleFilterChange).toHaveBeenCalled();
+    });
+
+    it('navigates to product details when clicking on a product card', async () => {
+      const mockLocation = {
+        href: '',
+        assign: vi.fn(),
+        replace: vi.fn(),
+        reload: vi.fn(),
+      };
+
+      Object.defineProperty(window, 'location', {
+        value: mockLocation,
+        writable: true,
+      });
+
+      renderWithQueryClient(<Home />);
+
+      await waitFor(() => {
+        const productImages = screen.getAllByRole('img');
+        expect(productImages.length).toBeGreaterThan(0);
+
+        productImages[0].click();
+      });
+
+      expect(mockLocation.href).toBe('/products/1');
+    });
+  });
+
+  describe('component structure', () => {
+    beforeEach(() => {
+      mockUseProductFilters.mockReturnValue({
+        page: 1,
+        setPage: vi.fn(),
+        filters: {},
+        setFilters: vi.fn(),
+        products: mockProducts,
+        isLoading: false,
+        isError: false,
+        totalPages: 3,
+        handlePageChange: vi.fn(),
+        handleFilterChange: vi.fn(),
+      });
+    });
+
+    it('renders within AppLayout', async () => {
+      renderWithQueryClient(<Home />);
+
+      await waitFor(() => {
+        const banners = screen.getAllByRole('banner');
+        expect(banners.length).toBeGreaterThan(0);
+
+        expect(screen.getByRole('main')).toBeInTheDocument();
+
+        const footers = screen.getAllByRole('contentinfo');
+        expect(footers.length).toBeGreaterThan(0);
+      });
+    });
+
+    it('has proper semantic structure with section and heading', async () => {
+      renderWithQueryClient(<Home />);
+
+      await waitFor(() => {
+        const heading = screen.getByRole('heading', { level: 2 });
+        expect(heading).toBeInTheDocument();
+        expect(heading).toHaveAttribute('id', 'products-heading');
+        expect(heading).toHaveTextContent('🌟 Discover Our Amazing Collection');
+
+        const section = heading.closest('section');
+        expect(section).toBeInTheDocument();
+        expect(section?.tagName).toBe('SECTION');
+        expect(section).toHaveAttribute('aria-labelledby', 'products-heading');
+      });
+    });
+  });
+
+  describe('URL persistence', () => {
+    it('correctly parses URL query parameters', () => {
+      const testURL = '?title=laptop&price_min=200&price_max=800&page=2';
+      const params = new URLSearchParams(testURL);
+
+      expect(params.get('title')).toBe('laptop');
+      expect(params.get('price_min')).toBe('200');
+      expect(params.get('price_max')).toBe('800');
+      expect(params.get('page')).toBe('2');
+    });
+  });
+
+  describe('empty state', () => {
+    it('renders nothing when products is null', () => {
+      mockUseProductFilters.mockReturnValue({
+        page: 1,
+        setPage: vi.fn(),
+        filters: {},
+        setFilters: vi.fn(),
+        products: undefined,
+        isLoading: false,
+        isError: false,
+        totalPages: 0,
+        handlePageChange: vi.fn(),
+        handleFilterChange: vi.fn(),
+      });
+
+      renderWithQueryClient(<Home />);
+
+      expect(screen.queryByText('Test Product 1')).not.toBeInTheDocument();
+      expect(screen.queryByText('Test Product 2')).not.toBeInTheDocument();
+    });
   });
 });

@@ -86,6 +86,7 @@ function ProductDetailsContent({ product }: ProductDetailsContentProps) {
               className="w-full gap-2"
               onClick={handleAddToCart}
               aria-label={`Add ${product.title} to cart`}
+              data-testid="add-to-cart-button"
             >
               <ShoppingCart className="h-5 w-5" />
               {t('products.addToCart')}
@@ -123,6 +124,7 @@ function ProductDetailsContent({ product }: ProductDetailsContentProps) {
               variant="outline"
               className="w-full gap-2"
               aria-label="Go to shopping cart"
+              data-testid="go-to-cart-button"
             >
               <ShoppingBag className="h-5 w-5" />
               {t('products.goToCart')}
@@ -144,6 +146,7 @@ function ProductDetailsContent({ product }: ProductDetailsContentProps) {
                 variant="destructive"
                 className="w-full gap-2"
                 aria-label={`Delete ${product.title}`}
+                data-testid="delete-product-button"
               >
                 <Trash className="h-5 w-5" />
                 {t('products.delete')}
@@ -161,6 +164,7 @@ function ProductDetailsContent({ product }: ProductDetailsContentProps) {
                 type="button"
                 className="w-full gap-2"
                 aria-label={`Edit ${product.title}`}
+                data-testid="edit-product-button"
               >
                 <Edit className="h-5 w-5" />
                 {t('products.edit')}

@@ -29,7 +29,10 @@ function ProductPagination({
   const { t } = useTranslation();
 
   return (
-    <div className="mt-8 flex flex-col items-center space-y-4">
+    <div
+      className="mt-8 flex flex-col items-center space-y-4"
+      data-testid="pagination"
+    >
       <ShadcnPagination>
         <PaginationContent>
           <PaginationItem>

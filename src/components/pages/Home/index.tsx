@@ -29,7 +29,7 @@ function Home() {
 
   return (
     <AppLayout>
-      <main className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
         <section aria-labelledby="products-heading" className="px-4 md:px-20">
           <div>
             <div className="mb-8 text-left">
@@ -99,7 +99,7 @@ function Home() {
             </>
           ) : null}
         </section>
-      </main>
+      </div>
     </AppLayout>
   );
 }
