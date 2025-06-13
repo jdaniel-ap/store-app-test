@@ -22,7 +22,7 @@
 ## 🚀 Deploy
 
 ### 🌐 **Produção**
-- **Live Demo**: [https://aivatech-ecommerce.vercel.app](https://aivatech-ecommerce.com)
+- **Live Demo**: [https://aiva-tech-test-jd.netlify.app/](https://aiva-tech-test-jd.netlify.app/)
 ## 🛠️ Setup do Projeto
 
 ### **Pré-requisitos**
