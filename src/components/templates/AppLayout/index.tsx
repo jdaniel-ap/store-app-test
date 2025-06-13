@@ -14,7 +14,10 @@ function AppLayout({ children }: PropsWithChildren) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="flex h-24 w-full items-center justify-between px-4 lg:px-20">
+      <header
+        data-testid="app-header"
+        className="flex h-24 w-full items-center justify-between px-4 lg:px-20"
+      >
         <Link to="/">
           <Logo className="h-20 w-40 cursor-pointer" />
         </Link>
@@ -23,11 +26,15 @@ function AppLayout({ children }: PropsWithChildren) {
 
           {isAuthenticated && user ? (
             <UserMenu>
-              <UserAvatar name={user.name} imageUrl={user.avatar} />
+              <UserAvatar
+                name={user.name}
+                imageUrl={user.avatar}
+                data-testid="user-avatar"
+              />
             </UserMenu>
           ) : (
             <SignInDialog>
-              <Button>{t('navigation.login')}</Button>
+              <Button data-testid="login">{t('navigation.login')}</Button>
             </SignInDialog>
           )}
         </div>
