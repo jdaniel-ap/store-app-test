@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🧪 Running tests before push..."
+npm run test:run
+
+if [ $? -eq 0 ]; then
+  echo "✅ All tests passed! Push proceeding..."
+else
+  echo "❌ Tests failed! Push aborted."
+  exit 1
+fi
