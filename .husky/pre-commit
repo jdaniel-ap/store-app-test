@@ -1,11 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Run tests first
+# Run test
 echo "🧪 Running tests..."
 npm run test:run
 
-# If tests pass, run lint-staged
+#  $? 0 pass ✅ else fail ❌
 if [ $? -eq 0 ]; then
   echo "✅ Tests passed! Running lint-staged..."
   npx lint-staged
