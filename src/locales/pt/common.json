@@ -177,5 +177,18 @@
     "edit": "Editar Produto",
     "delete": "Excluir Produto",
     "goToCart": "Ver Carrinho"
+  },
+  "components": {
+    "demoCredentials": {
+      "title": "Credenciais Demo:",
+      "email": "Email",
+      "password": "Senha",
+      "copyEmail": "Copiar email",
+      "copyPassword": "Copiar senha",
+      "copied": "Copiado!",
+      "emailCopied": "Email copiado para a área de transferência",
+      "passwordCopied": "Senha copiada para a área de transferência",
+      "copyError": "Falha ao copiar para a área de transferência"
+    }
   }
 }

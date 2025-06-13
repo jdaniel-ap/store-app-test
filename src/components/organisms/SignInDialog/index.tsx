@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { FormField } from '@/components/molecules';
+import { DemoCredentials } from '@/components/organisms';
 import { useAuthStore } from '@/stores';
 import type { LoginCredentials } from '@/services';
 import { createSignInSchema, type SignInFormData } from './schemas';
@@ -135,19 +136,7 @@ function SignInDialog({ children }: PropsWithChildren) {
           </Button>
         </form>
 
-        <div className="bg-muted/50 border-muted mt-6 rounded-lg border p-4">
-          <h4 className="text-muted-foreground mb-2 text-sm font-medium">
-            Demo Credentials:
-          </h4>
-          <div className="text-muted-foreground space-y-1 text-xs">
-            <p>
-              <strong>Email:</strong> john@mail.com
-            </p>
-            <p>
-              <strong>Password:</strong> changeme
-            </p>
-          </div>
-        </div>
+        <DemoCredentials />
       </DialogContent>
     </Dialog>
   );

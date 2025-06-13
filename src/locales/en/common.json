@@ -177,5 +177,18 @@
     "edit": "Edit Product",
     "delete": "Delete Product",
     "goToCart": "View Cart"
+  },
+  "components": {
+    "demoCredentials": {
+      "title": "Demo Credentials:",
+      "email": "Email",
+      "password": "Password",
+      "copyEmail": "Copy email",
+      "copyPassword": "Copy password",
+      "copied": "Copied!",
+      "emailCopied": "Email copied to clipboard",
+      "passwordCopied": "Password copied to clipboard",
+      "copyError": "Failed to copy to clipboard"
+    }
   }
 }
