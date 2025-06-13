@@ -1,6 +1,7 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppLayout } from '@/components/templates';
+import { SuspenseWrapper } from '@/components/atoms';
 import Loader from '@/components/atoms/Loader';
 import { useProductFilters } from '@/hooks';
 
@@ -46,18 +47,12 @@ function Home() {
                 {t('pages.home.featuredProductsSubtitle')}
               </p>
             </div>
-            <Suspense
-              fallback={
-                <div className="flex h-32 items-center justify-center">
-                  <Loader />
-                </div>
-              }
-            >
+            <SuspenseWrapper>
               <FilterProducts
                 onFilterChange={handleFilterChange}
                 initialFilters={filters}
               />
-            </Suspense>
+            </SuspenseWrapper>
           </div>
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-20">
@@ -74,23 +69,11 @@ function Home() {
             </div>
           ) : products && products.length > 0 ? (
             <>
-              <Suspense
-                fallback={
-                  <div className="flex h-64 items-center justify-center">
-                    <Loader />
-                  </div>
-                }
-              >
+              <SuspenseWrapper fallbackHeight="h-64">
                 <ProductList products={products} />
-              </Suspense>
+              </SuspenseWrapper>
 
-              <Suspense
-                fallback={
-                  <div className="mt-4 flex h-16 items-center justify-center">
-                    <Loader />
-                  </div>
-                }
-              >
+              <SuspenseWrapper fallbackHeight="h-16" className="mt-4">
                 <ProductPagination
                   page={page}
                   onPageChange={handlePageChange}
@@ -98,18 +81,12 @@ function Home() {
                   itemsPerPage={MAX_PRODUCTS}
                   totalPages={totalPages}
                 />
-              </Suspense>
+              </SuspenseWrapper>
             </>
           ) : (
-            <Suspense
-              fallback={
-                <div className="flex h-32 items-center justify-center">
-                  <Loader />
-                </div>
-              }
-            >
+            <SuspenseWrapper>
               <NoProductsMessage />
-            </Suspense>
+            </SuspenseWrapper>
           )}
         </section>
       </div>

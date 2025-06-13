@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { useParams, Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 
 import { AppLayout } from '@/components/templates';
+import { SuspenseWrapper } from '@/components/atoms';
 import Loader from '@/components/atoms/Loader';
 import { productService } from '@/services';
 import { QUERY_KEYS } from '@/lib/queryKeys';
@@ -54,20 +55,14 @@ function ProductDetails() {
 
   return (
     <AppLayout>
-      <Suspense
-        fallback={
-          <div className="flex h-20 items-center justify-center">
-            <Loader />
-          </div>
-        }
-      >
+      <SuspenseWrapper fallbackHeight="h-20">
         <AppLayoutHeader
           title={t('pages.productDetails.title')}
           subtitle={t('pages.productDetails.subtitle')}
           backLabel={t('common.backToHome')}
           backTo="/"
         />
-      </Suspense>
+      </SuspenseWrapper>
       <main className="container mx-auto px-4 py-8">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20">
@@ -77,35 +72,17 @@ function ProductDetails() {
             </h1>
           </div>
         ) : isError ? (
-          <Suspense
-            fallback={
-              <div className="flex h-64 items-center justify-center">
-                <Loader />
-              </div>
-            }
-          >
+          <SuspenseWrapper fallbackHeight="h-64">
             <ProductNotFound />
-          </Suspense>
+          </SuspenseWrapper>
         ) : product ? (
-          <Suspense
-            fallback={
-              <div className="flex h-96 items-center justify-center">
-                <Loader />
-              </div>
-            }
-          >
+          <SuspenseWrapper fallbackHeight="h-96">
             <ProductDetailsContent product={product} />
-          </Suspense>
+          </SuspenseWrapper>
         ) : (
-          <Suspense
-            fallback={
-              <div className="flex h-64 items-center justify-center">
-                <Loader />
-              </div>
-            }
-          >
+          <SuspenseWrapper fallbackHeight="h-64">
             <ProductNotFound />
-          </Suspense>
+          </SuspenseWrapper>
         )}
       </main>
     </AppLayout>

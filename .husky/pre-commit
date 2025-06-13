@@ -1,1 +1,15 @@
-npx lint-staged
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run tests first
+echo "🧪 Running tests..."
+npm run test:run
+
+# If tests pass, run lint-staged
+if [ $? -eq 0 ]; then
+  echo "✅ Tests passed! Running lint-staged..."
+  npx lint-staged
+else
+  echo "❌ Tests failed! Commit aborted."
+  exit 1
+fi
