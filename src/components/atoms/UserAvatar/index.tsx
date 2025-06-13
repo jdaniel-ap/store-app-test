@@ -5,9 +5,15 @@ interface UserAvatarProps {
   imageUrl?: string;
   name?: string;
   className?: string;
+  'data-testid'?: string;
 }
 
-function UserAvatar({ imageUrl, name, className }: UserAvatarProps) {
+function UserAvatar({
+  imageUrl,
+  name,
+  className,
+  'data-testid': testId,
+}: UserAvatarProps) {
   const getInitials = () => {
     if (!name) return 'UK';
     const names = name.split(' ');
@@ -22,7 +28,7 @@ function UserAvatar({ imageUrl, name, className }: UserAvatarProps) {
     );
   };
   return (
-    <Avatar className={cn('rounded-full', className)}>
+    <Avatar className={cn('rounded-full', className)} data-testid={testId}>
       <AvatarImage src={imageUrl} alt={name} />
       <AvatarFallback>{getInitials()}</AvatarFallback>
     </Avatar>

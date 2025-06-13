@@ -5,6 +5,7 @@ import { ProductImage } from '@/components/atoms';
 import { Button } from '@/components/ui/button';
 import { useCartStore } from '@/stores';
 import type { Product } from '@/services';
+import { useNavigate } from 'react-router';
 
 interface ProductCardProps {
   product: Product;
@@ -12,6 +13,7 @@ interface ProductCardProps {
 
 function ProductCard({ product }: ProductCardProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { addItem, items, updateQuantity, removeItem } = useCartStore();
   const cartItem = items.find((item) => item.id === product.id);
   const isInCart = !!cartItem;
@@ -39,11 +41,10 @@ function ProductCard({ product }: ProductCardProps) {
     <article
       key={product.id}
       className="bg-accent overflow-hidden rounded-lg shadow-md transition-shadow duration-300 hover:shadow-lg"
+      data-testid="product-card"
+      onClick={() => navigate(`/products/${product.id}`)}
     >
-      <figure
-        className="relative aspect-square cursor-pointer"
-        onClick={() => (window.location.href = `/products/${product.id}`)}
-      >
+      <figure className="relative aspect-square cursor-pointer">
         <ProductImage
           src={product.images[0]}
           alt={`${product.title} - Product image`}
@@ -58,10 +59,7 @@ function ProductCard({ product }: ProductCardProps) {
 
       <div className="p-4">
         <header>
-          <h3
-            className="text-foreground hover:text-primary mb-2 line-clamp-1 cursor-pointer text-lg font-semibold transition-colors"
-            onClick={() => (window.location.href = `/products/${product.id}`)}
-          >
+          <h3 className="text-foreground hover:text-primary mb-2 line-clamp-1 cursor-pointer text-lg font-semibold transition-colors">
             {product.title}
           </h3>
         </header>
@@ -90,7 +88,10 @@ function ProductCard({ product }: ProductCardProps) {
                 <Check className="h-3 w-3" />
                 <span>{t('products.inCart')}</span>
               </div>
-              <div className="flex items-center gap-1 rounded-md border bg-white">
+              <div
+                className="flex items-center gap-1 rounded-md border bg-white"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <Button
                   variant="ghost"
                   size="sm"

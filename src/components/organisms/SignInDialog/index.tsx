@@ -69,7 +69,11 @@ function SignInDialog({ children }: PropsWithChildren) {
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mt-6 space-y-4"
+          data-testid="sign-in-form"
+        >
           <FormField
             id="email"
             label={t('pages.login.email')}
@@ -114,6 +118,7 @@ function SignInDialog({ children }: PropsWithChildren) {
             </div>
           )}
           <Button
+            data-testid="sign-in-submit"
             type="submit"
             className="w-full"
             disabled={isLoading}

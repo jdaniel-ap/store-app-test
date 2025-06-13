@@ -43,7 +43,7 @@ function UserMenu({ children }: PropsWithChildren) {
   return (
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
-      <SheetContent className="w-80 p-0">
+      <SheetContent className="w-80 p-0" data-testid="user-menu-sheet">
         <SheetHeader className="space-y-4 p-6 pb-0">
           <SheetTitle className="text-left">{t('auth.profile')}</SheetTitle>
           <SheetDescription className="text-left">

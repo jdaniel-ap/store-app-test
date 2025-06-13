@@ -54,7 +54,10 @@ function FilterProducts({
   };
 
   return (
-    <div className={`mb-8 rounded-md bg-gray-800 p-4 ${className}`}>
+    <div
+      className={`mb-8 rounded-md bg-gray-800 p-4 ${className}`}
+      data-testid="product-filters"
+    >
       <div
         className="mb-4 flex cursor-pointer items-center justify-between"
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -62,7 +65,12 @@ function FilterProducts({
         <h3 className="text-lg font-medium text-white">
           {t('pages.home.filters.title')}
         </h3>
-        <Button variant="outline" size="sm" className="flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex items-center gap-2"
+          data-testid="filters-toggle"
+        >
           {isCollapsed ? (
             <>
               <ChevronDown className="h-4 w-4" />
@@ -92,6 +100,7 @@ function FilterProducts({
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   className="pl-8"
+                  data-testid="category-filter"
                 />
               </div>
             </div>
