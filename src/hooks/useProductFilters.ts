@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { ProductFilters, Product } from '@/services';
 import { productService } from '@/services';
+import { QUERY_KEYS } from '@/lib/queryKeys';
 
 interface UseProductFiltersOptions {
   itemsPerPage?: number;
@@ -48,7 +49,7 @@ export const useProductFilters = (
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['products', page, MAX_PRODUCTS, filters],
+    queryKey: [QUERY_KEYS.PRODUCTS, page, MAX_PRODUCTS, filters],
     queryFn: () => productService.getProducts(page, MAX_PRODUCTS, filters),
   });
 

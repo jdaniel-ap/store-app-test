@@ -1,4 +1,4 @@
-import { useState, useEffect, use, useTransition } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +9,7 @@ import { AppLayoutHeader } from '@/components/organisms';
 import { Button } from '@/components/ui/button';
 import ProductPreview from '@/components/molecules/ProductPreview';
 import ProductImageGalery from '@/components/molecules/ProductImageGalery';
-import { categoryService, productService } from '@/services';
+import { useCategories, useCreateProduct } from '@/hooks';
 
 import {
   createPublishProductSchema,
@@ -20,15 +20,19 @@ import Loader from '@/components/atoms/Loader';
 
 const LIMIT_IMAGES = 5;
 
-const categoriesReq = categoryService.getCategories();
-
 function PublishProduct() {
-  const [isPending, startTransition] = useTransition();
   const { t, i18n } = useTranslation();
   const [imagePreview, setImagePreview] = useState<string>('');
   const [tempImageUrl, setTempImageUrl] = useState<string>('');
+
+  const {
+    data: categories,
+    isLoading: categoriesLoading,
+    error: categoriesError,
+  } = useCategories();
+  const createProductMutation = useCreateProduct();
+
   const getSchema = () => createPublishProductSchema();
-  const categories = use(categoriesReq);
 
   const {
     register,
@@ -70,37 +74,29 @@ function PublishProduct() {
     }
   };
 
-  const onSubmit = (data: PublishProductFormData) => {
-    startTransition(async () => {
-      try {
-        await productService.createProduct({
-          title: data.title,
-          description: data.description,
-          price: data.price,
-          categoryId: data.categoryId,
-          images: data.images,
-        });
-        reset();
-        setImagePreview('');
-        toast.success(
-          t('pages.publishProduct.productPublished', {
-            title: data.title,
-          })
-        );
-      } catch (error) {
-        toast.error(
-          t('pages.publishProduct.apiError', {
-            reason: error instanceof Error ? error.message : 'Unknown error',
-          })
-        );
-      }
-    });
+  const onSubmit = async (data: PublishProductFormData) => {
     try {
-      console.log('Publishing product:', data);
+      await createProductMutation.mutateAsync({
+        title: data.title,
+        description: data.description,
+        price: data.price,
+        categoryId: data.categoryId,
+        images: data.images,
+      });
+
       reset();
       setImagePreview('');
+      toast.success(
+        t('pages.publishProduct.productPublished', {
+          title: data.title,
+        })
+      );
     } catch (error) {
-      console.error('Error publishing product:', error);
+      toast.error(
+        t('pages.publishProduct.apiError', {
+          reason: error instanceof Error ? error.message : 'Unknown error',
+        })
+      );
     }
   };
 
@@ -108,13 +104,31 @@ function PublishProduct() {
     getSchema();
   }, [i18n.language]);
 
-  if (isPending) {
+  if (categoriesLoading) {
     return (
       <div className="grid size-full place-content-center bg-black">
         <div className="animate-pulse">
           <Loader />
         </div>
       </div>
+    );
+  }
+  if (categoriesError) {
+    return (
+      <AppLayout>
+        <AppLayoutHeader
+          title={t('pages.publishProduct.title')}
+          subtitle={t('pages.publishProduct.subtitle')}
+          backTo="/"
+          backLabel={t('navigation.home')}
+          className="px-4 md:px-20"
+        />
+        <main className="container mx-auto px-4 py-8 md:px-20">
+          <div className="text-center text-red-500">
+            Error loading categories: {categoriesError.message}
+          </div>
+        </main>
+      </AppLayout>
     );
   }
 
@@ -166,7 +180,7 @@ function PublishProduct() {
                 id="product-category"
                 label={t('pages.publishProduct.category')}
                 options={
-                  categories?.map((item) => ({
+                  categories?.map((item: { id: number; name: string }) => ({
                     value: item.id,
                     label: item.name,
                   })) || []
@@ -186,11 +200,11 @@ function PublishProduct() {
               />
               <Button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || createProductMutation.isPending}
                 className="w-full"
                 size="lg"
               >
-                {isSubmitting
+                {isSubmitting || createProductMutation.isPending
                   ? t('pages.publishProduct.publishing')
                   : t('pages.publishProduct.publishProduct')}
               </Button>

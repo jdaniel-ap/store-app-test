@@ -10,6 +10,7 @@ import { ConfirmDialog, ProductEditSheet } from '@/components/organisms';
 import type { Product } from '@/services';
 import { productService } from '@/services';
 import { useAuthStore, useCartStore } from '@/stores';
+import { QUERY_KEYS } from '@/lib/queryKeys';
 
 interface ProductDetailsContentProps {
   product: Product;
@@ -47,7 +48,7 @@ function ProductDetailsContent({ product }: ProductDetailsContentProps) {
   const handleDeleteProduct = async () => {
     try {
       await productService.deleteProduct(product.id);
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PRODUCTS] });
       toast.success(t('pages.productDetails.productDeleted'));
       navigate('/');
     } catch (error) {
@@ -156,7 +157,7 @@ function ProductDetailsContent({ product }: ProductDetailsContentProps) {
               product={product}
               onUpdate={() => {
                 queryClient.invalidateQueries({
-                  queryKey: ['product', product.id.toString()],
+                  queryKey: [QUERY_KEYS.PRODUCT, product.id.toString()],
                 });
               }}
             >

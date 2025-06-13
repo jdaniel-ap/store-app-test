@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AppLayout } from '@/components/templates';
 import Loader from '@/components/atoms/Loader';
 import { productService } from '@/services';
+import { QUERY_KEYS } from '@/lib/queryKeys';
 
 const AppLayoutHeader = lazy(
   () => import('@/components/organisms/AppLayoutHeader')
@@ -26,7 +27,7 @@ function ProductDetails() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['product', id],
+    queryKey: [QUERY_KEYS.PRODUCT, id],
     queryFn: () =>
       id
         ? productService.getProductById(parseInt(id))
