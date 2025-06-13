@@ -11,6 +11,9 @@ const ProductPagination = lazy(
 const FilterProducts = lazy(
   () => import('@/components/molecules/ProductFilters')
 );
+const NoProductsMessage = lazy(
+  () => import('@/components/molecules/NoProductsMessage')
+);
 
 const MAX_PRODUCTS = 10;
 
@@ -69,7 +72,7 @@ function Home() {
                 {t('errors.generic')}
               </h1>
             </div>
-          ) : products ? (
+          ) : products && products.length > 0 ? (
             <>
               <Suspense
                 fallback={
@@ -97,7 +100,17 @@ function Home() {
                 />
               </Suspense>
             </>
-          ) : null}
+          ) : (
+            <Suspense
+              fallback={
+                <div className="flex h-32 items-center justify-center">
+                  <Loader />
+                </div>
+              }
+            >
+              <NoProductsMessage />
+            </Suspense>
+          )}
         </section>
       </div>
     </AppLayout>

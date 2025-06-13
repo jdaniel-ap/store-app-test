@@ -26,6 +26,7 @@
       "featuredProductsSubtitle": "Produtos selecionados especialmente para você",
       "loadingProducts": "Carregando produtos incríveis...",
       "noProducts": "Nenhum produto disponível no momento",
+      "noProductsMessage": "Tente ajustar seus filtros ou volte mais tarde para novos produtos",
       "showingPage": "Página {{page}} · Mostrando {{products}} produtos · {{offset}}-{{to}}",
       "filters": {
         "title": "Filtros",
