@@ -34,7 +34,7 @@
 ```bash
 # Clone o repositório
 git clone git@github.com:jdaniel-ap/store-app-test.git
-cd aivatech-test
+cd store-app-test
 
 # Instale as dependências
 npm install
