@@ -68,7 +68,7 @@ export const useProductFilters = (
       currentParams.set('price_max', filters.price_max.toString());
     }
 
-    if (page > 0) {
+    if (page >= 1) {
       currentParams.set('page', page.toString());
     }
 
@@ -85,7 +85,7 @@ export const useProductFilters = (
 
   const handleFilterChange = (newFilters: ProductFilters) => {
     setFilters(newFilters);
-    setPage(0);
+    setPage(1);
   };
 
   const totalPages = 5;

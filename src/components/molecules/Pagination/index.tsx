@@ -41,7 +41,7 @@ function ProductPagination({
               onClick={(e) => {
                 if (page <= 1) return;
                 e.preventDefault();
-                onPageChange(Math.max(0, page - 1));
+                onPageChange(Math.max(1, page - 1));
               }}
               className={page <= 1 ? 'pointer-events-none opacity-50' : ''}
             />
@@ -68,11 +68,15 @@ function ProductPagination({
 
           <PaginationItem>
             <PaginationNext
-              href={`?page=${page + 1}`}
+              href={page >= totalPages ? '#' : `?page=${page + 1}`}
               onClick={(e) => {
+                if (page >= totalPages) return;
                 e.preventDefault();
                 onPageChange(page + 1);
               }}
+              className={
+                page >= totalPages ? 'pointer-events-none opacity-50' : ''
+              }
             />
           </PaginationItem>
         </PaginationContent>
