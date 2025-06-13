@@ -213,8 +213,6 @@ describe('Home Component', () => {
       await waitFor(() => {
         const productCards = screen.getAllByTestId('product-card');
         expect(productCards.length).toBeGreaterThan(0);
-
-        // Verify the card is clickable (has onclick handler)
         expect(productCards[0]).toBeInTheDocument();
         expect(productCards[0]).toHaveAttribute('data-testid', 'product-card');
       });
