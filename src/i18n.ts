@@ -30,6 +30,10 @@ i18n
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
       lookupLocalStorage: 'i18nextLng',
+      convertDetectedLanguage: (lng) => {
+        if (lng.startsWith('pt')) return 'pt';
+        return 'en';
+      },
     },
 
     react: {
